@@ -162,8 +162,6 @@ class Client(_HttpxClient):
                     auth=auth, follow_redirects=follow_redirects,
                     timeout=timeout, extensions=extensions
                 )
-                if raise_for_status:
-                    response.raise_for_status()
             except (RequestError, HTTPStatusError):
                 if i == attempts - 1:
                     raise
@@ -171,6 +169,8 @@ class Client(_HttpxClient):
             else:
                 if i > 0:
                     logging.warning(f"Successfully retrieved: '{url}'")
+                if raise_for_status:
+                    response.raise_for_status()
                 return SoupedResponse(
                     response,
                     parser=parser,
@@ -229,8 +229,6 @@ class Client(_HttpxClient):
                     follow_redirects=follow_redirects,
                     stream=True,
                 )
-                if raise_for_status:
-                    response.raise_for_status()
             except (RequestError, HTTPStatusError):
                 if i == attempts - 1:
                     raise
@@ -238,6 +236,8 @@ class Client(_HttpxClient):
             else:
                 if i > 0:
                     logging.warning(f"Successfully retrieved: '{url}'")
+                if raise_for_status:
+                    response.raise_for_status()
                 try:
                     yield SoupedResponse(
                         response,
@@ -648,8 +648,6 @@ class AsyncClient(_HttpxAsyncClient):
                     auth=auth, follow_redirects=follow_redirects,
                     timeout=timeout, extensions=extensions
                 )
-                if raise_for_status:
-                    response.raise_for_status()
             except (RequestError, HTTPStatusError):
                 if i == attempts - 1:
                     raise
@@ -657,6 +655,8 @@ class AsyncClient(_HttpxAsyncClient):
             else:
                 if i > 0:
                     logging.warning(f"Successfully retrieved: '{url}'")
+                if raise_for_status:
+                    response.raise_for_status()
                 return SoupedResponse(
                     response,
                     parser=parser,
@@ -725,8 +725,6 @@ class AsyncClient(_HttpxAsyncClient):
                     follow_redirects=follow_redirects,
                     stream=True,
                 )
-                if raise_for_status:
-                    response.raise_for_status()
             except (RequestError, HTTPStatusError):
                 if i == attempts - 1:
                     raise
@@ -734,6 +732,8 @@ class AsyncClient(_HttpxAsyncClient):
             else:
                 if i > 0:
                     logging.warning(f"Successfully retrieved: '{url}'")
+                if raise_for_status:
+                    response.raise_for_status()
                 try:
                     yield SoupedResponse(
                         response,
