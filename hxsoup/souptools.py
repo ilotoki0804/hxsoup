@@ -39,8 +39,16 @@ class SoupTools:
     def soup(
         self,
         parser: Parsers | None = None,
+        caching: bool = False,
     ) -> BeautifulSoup:
-        return BeautifulSoup(self.text, parser or self.parser or "html.parser")
+        with contextlib.suppress(AttributeError):
+            return self._soup_cache
+
+        if not caching:
+            return BeautifulSoup(self.text, parser or self.parser or "html.parser")
+
+        self._soup_cache = BeautifulSoup(self.text, parser or self.parser or "html.parser")
+        return self._soup_cache
 
     @overload
     def soup_select(
