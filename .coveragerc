@@ -1,0 +1,11 @@
+[run]
+omit =
+    resoup/souptools.py
+    resoup/api_with_tools.py
+    resoup/sessions_with_tools.py
+
+[report]
+exclude_lines = 
+    pragma: not covered
+    @overload
+    @abstractmethod
