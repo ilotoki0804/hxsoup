@@ -38,7 +38,7 @@ from httpx._types import (
 
 from .souptools import Parsers, SoupedResponse
 
-DEFAULT_HEADERS = {
+DEV_HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
     "Accept-Encoding": "gzip, deflate, br",
     "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
@@ -1066,7 +1066,7 @@ class DevClient(Client):
         *,
         auth: typing.Optional[AuthTypes] = None,
         params: typing.Optional[QueryParamTypes] = None,
-        headers: typing.Optional[HeaderTypes] = DEFAULT_HEADERS,  # changed
+        headers: typing.Optional[HeaderTypes] = DEV_HEADERS,  # changed
         cookies: typing.Optional[CookieTypes] = None,
         verify: VerifyTypes = True,
         cert: typing.Optional[CertTypes] = None,
@@ -1131,7 +1131,7 @@ class DevAsyncClient(AsyncClient):
         *,
         auth: typing.Optional[AuthTypes] = None,
         params: typing.Optional[QueryParamTypes] = None,
-        headers: typing.Optional[HeaderTypes] = DEFAULT_HEADERS,  # changed
+        headers: typing.Optional[HeaderTypes] = DEV_HEADERS,  # changed
         cookies: typing.Optional[CookieTypes] = None,
         verify: VerifyTypes = True,
         cert: typing.Optional[CertTypes] = None,
