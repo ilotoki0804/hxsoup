@@ -5,7 +5,6 @@ import typing
 from contextlib import contextmanager
 
 from httpx._config import DEFAULT_TIMEOUT_CONFIG
-# from httpx._models import Response
 from httpx._types import (
     AuthTypes,
     CertTypes,
@@ -566,6 +565,7 @@ def delete(
 #                 CACHED                 #
 #                                        #
 ##########################################
+
 
 @freeze_dict_and_list()
 @lru_cache

@@ -47,7 +47,8 @@ class SoupTools:
         if not caching:
             return BeautifulSoup(self.text, parser or self.parser or "html.parser")
 
-        self._soup_cache = BeautifulSoup(self.text, parser or self.parser or "html.parser")
+        parser = parser or self.parser or "html.parser"
+        self._soup_cache = BeautifulSoup(self.text, parser)
         return self._soup_cache
 
     @overload
@@ -169,7 +170,7 @@ class SoupTools:
         select_results = self.soup(parser).select_one(selector)
         if (no_empty_result or self.no_empty_result) and select_results is None:
             self._raise_error(
-                'Result of select_one is None.',
+                "Result of select_one is None.",
                 selector=selector,
             )
 
@@ -180,7 +181,7 @@ class SoupTools:
     def xml(self) -> BeautifulSoup:
         """parser가 xml인 .soup()입니다. 자세한 내용은 .soup()의 docstring을 확인하세요."""
         # functools.partial을 사용할까도 했지만 그러면 type hint와 docstring 사용이 어렵다.
-        return self.soup(parser='xml')
+        return self.soup(parser="xml")
 
     @overload
     def xml_select(
@@ -216,7 +217,7 @@ class SoupTools:
         use_broadcast_list: bool = True,
     ) -> ResultSet[Tag] | TagBroadcastList:
         """parser가 xml인 .soup_select()입니다. 자세한 내용은 .soup_select()의 docstring을 확인하세요."""
-        return self.soup_select(selector, no_empty_result, 'xml', use_broadcast_list)
+        return self.soup_select(selector, no_empty_result, "xml", use_broadcast_list)
 
     @overload
     def xml_select_one(
@@ -248,7 +249,7 @@ class SoupTools:
         no_empty_result: bool = False,
     ) -> Tag | None:
         """parser가 xml인 .soup_select_one()입니다. 자세한 내용은 .soup_select_one()의 docstring을 확인하세요."""
-        return self.soup_select_one(selector, no_empty_result, 'xml')
+        return self.soup_select_one(selector, no_empty_result, "xml")
 
 
 class SoupedResponse(Response, SoupTools):

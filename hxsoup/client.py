@@ -12,7 +12,6 @@ from httpx import (
     Response,
 )
 from httpx._client import USE_CLIENT_DEFAULT, UseClientDefault, EventHook
-# from httpx._models import Response
 from httpx._config import (
     DEFAULT_LIMITS,
     DEFAULT_MAX_REDIRECTS,
@@ -40,24 +39,24 @@ from httpx._types import (
 from .souptools import Parsers, SoupedResponse
 
 DEFAULT_HEADERS = {
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
-    'Sec-Ch-Ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-    'Sec-Ch-Ua-Arch': '"x86"',
-    'Sec-Ch-Ua-Bitness': '"64"',
-    'Sec-Ch-Ua-Full-Version-List': '"Not_A Brand";v="8.0.0.0", "Chromium";v="120.0.6099.130", "Google Chrome";v="120.0.6099.130"',
-    'Sec-Ch-Ua-Mobile': '?0',
-    'Sec-Ch-Ua-Model': '""',
-    'Sec-Ch-Ua-Platform': '"Windows"',
-    'Sec-Ch-Ua-Platform-Version': '"15.0.0"',
-    'Sec-Ch-Ua-Wow64': '?0',
-    'Sec-Fetch-Dest': 'document',
-    'Sec-Fetch-Mode': 'navigate',
-    'Sec-Fetch-Site': 'none',
-    'Sec-Fetch-User': '?1',
-    'Upgrade-Insecure-Requests': '1',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+    "Sec-Ch-Ua": '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+    "Sec-Ch-Ua-Arch": '"x86"',
+    "Sec-Ch-Ua-Bitness": '"64"',
+    "Sec-Ch-Ua-Full-Version-List": '"Not_A Brand";v="8.0.0.0", "Chromium";v="120.0.6099.130", "Google Chrome";v="120.0.6099.130"',
+    "Sec-Ch-Ua-Mobile": "?0",
+    "Sec-Ch-Ua-Model": '""',
+    "Sec-Ch-Ua-Platform": '"Windows"',
+    "Sec-Ch-Ua-Platform-Version": '"15.0.0"',
+    "Sec-Ch-Ua-Wow64": "?0",
+    "Sec-Fetch-Dest": "document",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-Site": "none",
+    "Sec-Fetch-User": "?1",
+    "Upgrade-Insecure-Requests": "1",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 }
 
 
@@ -157,10 +156,19 @@ class Client(_HttpxClient):
         for i in range(attempts):
             try:
                 response = super().request(
-                    method, url, content=content, data=data, files=files,
-                    json=json, params=params, headers=headers, cookies=cookies,
-                    auth=auth, follow_redirects=follow_redirects,
-                    timeout=timeout, extensions=extensions
+                    method,
+                    url,
+                    content=content,
+                    data=data,
+                    files=files,
+                    json=json,
+                    params=params,
+                    headers=headers,
+                    cookies=cookies,
+                    auth=auth,
+                    follow_redirects=follow_redirects,
+                    timeout=timeout,
+                    extensions=extensions,
                 )
             except (RequestError, HTTPStatusError):
                 if i == attempts - 1:
@@ -175,7 +183,7 @@ class Client(_HttpxClient):
                     response,
                     parser=parser,
                     broadcasting=broadcasting,
-                    no_empty_result=no_empty_result
+                    no_empty_result=no_empty_result,
                 )
         raise  # Unreachable
 
@@ -243,7 +251,7 @@ class Client(_HttpxClient):
                         response,
                         parser=parser,
                         broadcasting=broadcasting,
-                        no_empty_result=no_empty_result
+                        no_empty_result=no_empty_result,
                     )
                 finally:
                     response.close()
@@ -643,10 +651,19 @@ class AsyncClient(_HttpxAsyncClient):
         for i in range(attempts):
             try:
                 response = await super().request(
-                    method, url, content=content, data=data, files=files,
-                    json=json, params=params, headers=headers, cookies=cookies,
-                    auth=auth, follow_redirects=follow_redirects,
-                    timeout=timeout, extensions=extensions
+                    method,
+                    url,
+                    content=content,
+                    data=data,
+                    files=files,
+                    json=json,
+                    params=params,
+                    headers=headers,
+                    cookies=cookies,
+                    auth=auth,
+                    follow_redirects=follow_redirects,
+                    timeout=timeout,
+                    extensions=extensions,
                 )
             except (RequestError, HTTPStatusError):
                 if i == attempts - 1:
@@ -661,7 +678,7 @@ class AsyncClient(_HttpxAsyncClient):
                     response,
                     parser=parser,
                     broadcasting=broadcasting,
-                    no_empty_result=no_empty_result
+                    no_empty_result=no_empty_result,
                 )
         raise  # Unreachable
 
@@ -739,7 +756,7 @@ class AsyncClient(_HttpxAsyncClient):
                         response,
                         parser=parser,
                         broadcasting=broadcasting,
-                        no_empty_result=no_empty_result
+                        no_empty_result=no_empty_result,
                     )
                 finally:
                     await response.aclose()
