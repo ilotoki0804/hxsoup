@@ -43,15 +43,19 @@ Parsers = Literal["html.parser", "html", "lxml", "lxml-xml", "xml", "html5lib", 
 class SoupTools:
     def __init__(
         self,
-        text: str,
+        text: str | None,
         *,
         parser: Parsers | None = None,
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> None:
-        with contextlib.suppress(AttributeError):
-            # Response는 self.text를 덮어씌우도록 허락하지 않는다.
+        if text is None:
+            assert type(self) is not SoupTools, (
+                "None in text field is not allowed."
+            )
+        else:
             self.text: str = text
+
         self.parser: Parsers | None = parser
         self.broadcasting = broadcasting
         self.no_empty_result = no_empty_result
@@ -294,7 +298,7 @@ class SoupedResponse(Response, SoupTools):
     ) -> None:
         self.__dict__ = response.__dict__
         super(Response, self).__init__(
-            response.text,
+            None,
             parser=parser,
             broadcasting=broadcasting,
             no_empty_result=no_empty_result,
