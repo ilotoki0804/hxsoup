@@ -36,7 +36,7 @@ from httpx._types import (
     VerifyTypes,
 )
 
-from .souptools import Parsers, SoupedResponse
+from .souptools import Parsers, SoupedResponse, _resolve_default
 
 DEV_HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -147,11 +147,11 @@ class Client(_HttpxClient):
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> SoupedResponse:
-        attempts = attempts or self.attempts or 1
-        raise_for_status = raise_for_status or self.raise_for_status or False
-        parser = parser or self.parser
-        broadcasting = broadcasting or self.broadcasting
-        no_empty_result = no_empty_result or self.no_empty_result
+        attempts = _resolve_default(attempts, self.attempts, 1)
+        raise_for_status = _resolve_default(raise_for_status, self.raise_for_status, False)
+        parser = _resolve_default(parser, self.parser, allow_none=True)
+        broadcasting = _resolve_default(broadcasting, self.broadcasting, allow_none=True)
+        no_empty_result = _resolve_default(no_empty_result, self.no_empty_result, allow_none=True)
 
         for i in range(attempts):
             try:
@@ -210,11 +210,11 @@ class Client(_HttpxClient):
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> typing.Iterator[SoupedResponse]:
-        attempts = attempts or self.attempts or 1
-        raise_for_status = raise_for_status or self.raise_for_status or False
-        parser = parser or self.parser
-        broadcasting = broadcasting or self.broadcasting
-        no_empty_result = no_empty_result or self.no_empty_result
+        attempts = _resolve_default(attempts, self.attempts, 1)
+        raise_for_status = _resolve_default(raise_for_status, self.raise_for_status, False)
+        parser = _resolve_default(parser, self.parser, allow_none=True)
+        broadcasting = _resolve_default(broadcasting, self.broadcasting, allow_none=True)
+        no_empty_result = _resolve_default(no_empty_result, self.no_empty_result, allow_none=True)
 
         for i in range(attempts):
             try:
@@ -642,11 +642,11 @@ class AsyncClient(_HttpxAsyncClient):
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> SoupedResponse:
-        attempts = attempts or self.attempts or 1
-        raise_for_status = raise_for_status or self.raise_for_status or False
-        parser = parser or self.parser
-        broadcasting = broadcasting or self.broadcasting
-        no_empty_result = no_empty_result or self.no_empty_result
+        attempts = _resolve_default(attempts, self.attempts, 1)
+        raise_for_status = _resolve_default(raise_for_status, self.raise_for_status, False)
+        parser = _resolve_default(parser, self.parser, allow_none=True)
+        broadcasting = _resolve_default(broadcasting, self.broadcasting, allow_none=True)
+        no_empty_result = _resolve_default(no_empty_result, self.no_empty_result, allow_none=True)
 
         for i in range(attempts):
             try:
@@ -715,11 +715,11 @@ class AsyncClient(_HttpxAsyncClient):
 
         [0]: /quickstart#streaming-responses
         """
-        attempts = attempts or self.attempts or 1
-        raise_for_status = raise_for_status or self.raise_for_status or False
-        parser = parser or self.parser
-        broadcasting = broadcasting or self.broadcasting
-        no_empty_result = no_empty_result or self.no_empty_result
+        attempts = _resolve_default(attempts, self.attempts, 1)
+        raise_for_status = _resolve_default(raise_for_status, self.raise_for_status, False)
+        parser = _resolve_default(parser, self.parser, allow_none=True)
+        broadcasting = _resolve_default(broadcasting, self.broadcasting, allow_none=True)
+        no_empty_result = _resolve_default(no_empty_result, self.no_empty_result, allow_none=True)
 
         for i in range(attempts):
             try:

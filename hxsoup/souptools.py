@@ -9,6 +9,34 @@ from bs4.element import Tag, ResultSet
 from resoup.exceptions import EmptyResultError
 from resoup.broadcast_list import TagBroadcastList
 
+T = typing.TypeVar("T")
+
+
+@typing.overload
+def _resolve_default(*args: T | None, allow_none: typing.Literal[False] = ...) -> T:
+    ...
+
+
+@typing.overload
+def _resolve_default(*args: T, allow_none: typing.Literal[True] = ...) -> T:
+    ...
+
+
+@typing.overload
+def _resolve_default(*args: T, allow_none: bool = False) -> T:
+    ...
+
+
+def _resolve_default(*args: T | None, allow_none: bool = False) -> T | None:
+    for arg in args:
+        if arg is not None:
+            return arg
+    if allow_none:
+        return None
+    raise ValueError(f"No matched arguments. args: {args}"
+                     "This message is provided because allow_none parameter was False.")
+
+
 Parsers = Literal["html.parser", "html", "lxml", "lxml-xml", "xml", "html5lib", "html5"]
 
 
@@ -44,10 +72,11 @@ class SoupTools:
         with contextlib.suppress(AttributeError):
             return self._soup_cache
 
-        if not caching:
-            return BeautifulSoup(self.text, parser or self.parser or "html.parser")
+        parser = _resolve_default(parser, self.parser, "html.parser")
 
-        parser = parser or self.parser or "html.parser"
+        if not caching:
+            return BeautifulSoup(self.text, parser)
+
         self._soup_cache = BeautifulSoup(self.text, parser)
         return self._soup_cache
 
@@ -104,7 +133,8 @@ class SoupTools:
             ResultSet[Tag]
         """
         selected = self.soup(parser).select(selector)
-        if (no_empty_result or self.no_empty_result) and selected == []:
+        no_empty_result = _resolve_default(no_empty_result, self.no_empty_result, False)
+        if no_empty_result and selected == []:
             self._raise_error(
                 'Result of select is empty list("[]").',
                 selector=selector,
@@ -168,7 +198,8 @@ class SoupTools:
             Tag: no_empty_result가 True일 경우(정적 검사기에 반영됨)
         """
         select_results = self.soup(parser).select_one(selector)
-        if (no_empty_result or self.no_empty_result) and select_results is None:
+        no_empty_result = _resolve_default(no_empty_result, self.no_empty_result, False)
+        if no_empty_result and select_results is None:
             self._raise_error(
                 "Result of select_one is None.",
                 selector=selector,
