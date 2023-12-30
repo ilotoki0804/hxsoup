@@ -138,7 +138,7 @@ class SoupTools:
         """
         selected = self.soup(parser).select(selector)
         no_empty_result = _resolve_default(no_empty_result, self.no_empty_result, False)
-        if no_empty_result and selected == []:
+        if no_empty_result and not selected:
             self._raise_error(
                 'Result of select is empty list("[]").',
                 selector=selector,
