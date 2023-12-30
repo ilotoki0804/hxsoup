@@ -255,6 +255,7 @@ class Client(_HttpxClient):
                     )
                 finally:
                     response.close()
+                    return
         raise  # Unreachable
 
     def get(
@@ -760,6 +761,7 @@ class AsyncClient(_HttpxAsyncClient):
                     )
                 finally:
                     await response.aclose()
+                    return
         raise  # Unreachable
 
     async def get(
