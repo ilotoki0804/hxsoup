@@ -1,6 +1,6 @@
 """Automate build.
 
-v.2023-12-28(1)
+v.2023-12-30(3)
 """
 import os
 import shutil
@@ -11,6 +11,7 @@ import tomlkit
 from hxsoup import __version__, __github_user_name__, __github_project_name__
 
 LEAVE_README_BUILD_VERSION = False
+PUBLISH = True
 
 github_project_url = f"https://github.com/{__github_user_name__}/{__github_project_name__}"
 
@@ -50,7 +51,8 @@ try:
     Path("README_build.md").write_text(long_description, encoding='utf-8')
 
     os.system('poetry build')
-    os.system(f'poetry publish -u __token__ -p {Path("_token.txt").read_text("utf-8")}')
+    if PUBLISH:
+        os.system(f'poetry publish -u __token__ -p {Path("_token.txt").read_text("utf-8")}')
 finally:
     if not LEAVE_README_BUILD_VERSION:
         os.remove("README_build.md")
