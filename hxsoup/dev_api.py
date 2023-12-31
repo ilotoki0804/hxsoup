@@ -19,7 +19,7 @@ from httpx._types import (
     URLTypes,
     VerifyTypes,
 )
-from resoup.dealing_unhashable_args import freeze_dict_and_list
+from .caching import freeze_dict_and_list
 
 from .client import DevClient as Client
 from .souptools import Parsers, SoupedResponse

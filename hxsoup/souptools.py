@@ -6,8 +6,8 @@ from httpx._models import Response
 from typing import overload, Literal
 from bs4 import BeautifulSoup
 from bs4.element import Tag, ResultSet
-from resoup.exceptions import EmptyResultError
-from resoup.broadcast_list import TagBroadcastList
+from .exceptions import EmptyResultError
+from .broadcast_list import TagBroadcastList
 
 T = typing.TypeVar("T")
 
