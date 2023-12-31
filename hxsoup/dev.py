@@ -16,7 +16,6 @@ from .dev_api import (
     cpost,
     cput,
     crequest,
-    cstream,
 )
 from .client import DevClient as Client, DevAsyncClient as AsyncClient
 from .souptools import SoupedResponse, SoupTools
