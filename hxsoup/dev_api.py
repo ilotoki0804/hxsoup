@@ -702,7 +702,7 @@ def cget(
     Note that the `data`, `files`, `json` and `content` parameters are not available
     on this function, as `GET` requests should not include a request body.
     """
-    return request(
+    return crequest(
         "GET",
         url,
         params=params,
@@ -752,7 +752,7 @@ def coptions(
     Note that the `data`, `files`, `json` and `content` parameters are not available
     on this function, as `OPTIONS` requests should not include a request body.
     """
-    return request(
+    return crequest(
         "OPTIONS",
         url,
         params=params,
@@ -802,7 +802,7 @@ def chead(
     Note that the `data`, `files`, `json` and `content` parameters are not available
     on this function, as `HEAD` requests should not include a request body.
     """
-    return request(
+    return crequest(
         "HEAD",
         url,
         params=params,
@@ -853,7 +853,7 @@ def cpost(
 
     **Parameters**: See `httpx.request`.
     """
-    return request(
+    return crequest(
         "POST",
         url,
         content=content,
@@ -908,7 +908,7 @@ def cput(
 
     **Parameters**: See `httpx.request`.
     """
-    return request(
+    return crequest(
         "PUT",
         url,
         content=content,
@@ -963,7 +963,7 @@ def cpatch(
 
     **Parameters**: See `httpx.request`.
     """
-    return request(
+    return crequest(
         "PATCH",
         url,
         content=content,
@@ -1017,7 +1017,7 @@ def cdelete(
     Note that the `data`, `files`, `json` and `content` parameters are not available
     on this function, as `DELETE` requests should not include a request body.
     """
-    return request(
+    return crequest(
         "DELETE",
         url,
         params=params,
