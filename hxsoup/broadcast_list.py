@@ -16,7 +16,7 @@ T = TypeVar('T')
 T_co = TypeVar('T_co', covariant=True)
 
 
-class BroadcastList(list[T]):
+class BroadcastList(list, Generic[T]):
     @property
     def bc(self) -> _BroadcastedList[T]:
         return _BroadcastedList(self)
