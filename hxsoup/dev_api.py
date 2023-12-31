@@ -4,7 +4,6 @@ from functools import lru_cache
 import typing
 from contextlib import contextmanager
 
-from httpx._config import DEFAULT_TIMEOUT_CONFIG
 from httpx._types import (
     AuthTypes,
     CertTypes,
@@ -24,6 +23,8 @@ from resoup.dealing_unhashable_args import freeze_dict_and_list
 
 from .client import DevClient as Client
 from .souptools import Parsers, SoupedResponse
+
+DEFAULT_TIMEOUT_CONFIG = 5.0
 
 
 def request(
