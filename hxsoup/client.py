@@ -1,9 +1,7 @@
 from __future__ import annotations
 
 from contextlib import asynccontextmanager, contextmanager
-from dataclasses import dataclass, field
 import logging
-import sys
 import typing
 from frozendict import frozendict
 
@@ -62,7 +60,6 @@ DEV_HEADERS = frozendict({
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 })
 DEV_DEFAULT_TIMEOUT_CONFIG = 5.0
-
 
 
 class Client(_HttpxClient):
