@@ -298,6 +298,14 @@ options/head/post/put/patch/delete들도 마찬가지로 대응되는 coptions/c
 
 캐시는 lru_cache 기본값을 사용하기 때문에 메소드 구분 없이 128개까지 저장됩니다.
 
+## License information
+
+이 프로그램의 일부는 [resoup(본인 제작)](https://github.com/ilotoki0804/resoup) 라이브러리에 있던 코드를 포함합니다.
+Some part of this program contains code from [resoup(created and developed by me)](https://github.com/ilotoki0804/resoup) library.
+
+이 프로그램의 일부는 [typeshed(Apache License 2.0 or MIT License)](https://github.com/python/typeshed) 라이브러리에 있던 코드를 포함합니다.
+Some part of this program contains code from [typeshed](https://github.com/python/typeshed) library.
+
 ## Motivation and blathers
 
 이전에 requests의 불편한 점을 느끼고 관련 내용을 입맛에 맞게 수정한 resoup라는 라이브러리를 만들어 사용하고 있었습니다.
