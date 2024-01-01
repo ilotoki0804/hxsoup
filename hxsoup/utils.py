@@ -11,7 +11,7 @@ def clean_headers(raw_headers: str):
         if line[-1] != ':':
             raise ValueError(f'Unexpected string: {line} on {i + 1}th line.')
 
-        name = line.removesuffix(':')
+        name = line[:-1]
         is_name = False
 
     return headers
