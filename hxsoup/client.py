@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 from contextlib import asynccontextmanager, contextmanager
+from dataclasses import dataclass, field
 import logging
+import sys
 import typing
+from frozendict import frozendict
 
 from httpx import (
     AsyncClient as _HttpxAsyncClient,
@@ -38,7 +41,7 @@ from httpx._types import (
 
 from .souptools import Parsers, SoupedResponse, _resolve_default
 
-DEV_HEADERS = {
+DEV_HEADERS = frozendict({
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
     "Accept-Encoding": "gzip, deflate, br",
     "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
@@ -57,7 +60,9 @@ DEV_HEADERS = {
     "Sec-Fetch-User": "?1",
     "Upgrade-Insecure-Requests": "1",
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-}
+})
+DEV_DEFAULT_TIMEOUT_CONFIG = 5.0
+
 
 
 class Client(_HttpxClient):
@@ -1079,7 +1084,7 @@ class DevClient(Client):
         mounts: typing.Optional[
             typing.Mapping[str, typing.Optional[BaseTransport]]
         ] = None,
-        timeout: TimeoutTypes = DEFAULT_TIMEOUT_CONFIG,
+        timeout: TimeoutTypes = DEV_DEFAULT_TIMEOUT_CONFIG,  # changed
         follow_redirects: bool = True,  # changed
         limits: Limits = DEFAULT_LIMITS,
         max_redirects: int = DEFAULT_MAX_REDIRECTS,
@@ -1144,7 +1149,7 @@ class DevAsyncClient(AsyncClient):
         mounts: typing.Optional[
             typing.Mapping[str, typing.Optional[AsyncBaseTransport]]
         ] = None,
-        timeout: TimeoutTypes = DEFAULT_TIMEOUT_CONFIG,
+        timeout: TimeoutTypes = DEV_DEFAULT_TIMEOUT_CONFIG,  # changed
         follow_redirects: bool = True,  # changed
         limits: Limits = DEFAULT_LIMITS,
         max_redirects: int = DEFAULT_MAX_REDIRECTS,

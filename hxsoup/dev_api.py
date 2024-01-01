@@ -21,10 +21,12 @@ from httpx._types import (
 )
 from .caching import freeze_dict_and_list
 
-from .client import DevClient as Client
+from .client import (
+    DevClient as Client,
+    DEV_DEFAULT_TIMEOUT_CONFIG,
+    DEFAULT_TIMEOUT_CONFIG,
+)
 from .souptools import Parsers, SoupedResponse
-
-DEFAULT_TIMEOUT_CONFIG = 5.0
 
 
 def request(
@@ -41,7 +43,7 @@ def request(
     auth: typing.Optional[AuthTypes] = None,
     proxy: typing.Optional[ProxyTypes] = None,
     proxies: typing.Optional[ProxiesTypes] = None,
-    timeout: TimeoutTypes = DEFAULT_TIMEOUT_CONFIG,
+    timeout: TimeoutTypes = DEV_DEFAULT_TIMEOUT_CONFIG,
     follow_redirects: bool = True,  # changed
     verify: VerifyTypes = True,
     cert: typing.Optional[CertTypes] = None,
@@ -577,7 +579,7 @@ def crequest(
     auth: typing.Optional[AuthTypes] = None,
     proxy: typing.Optional[ProxyTypes] = None,
     proxies: typing.Optional[ProxiesTypes] = None,
-    timeout: TimeoutTypes = DEFAULT_TIMEOUT_CONFIG,
+    timeout: TimeoutTypes = DEV_DEFAULT_TIMEOUT_CONFIG,
     follow_redirects: bool = True,  # changed
     verify: VerifyTypes = True,
     cert: typing.Optional[CertTypes] = None,
@@ -679,7 +681,7 @@ def cget(
     follow_redirects: bool = True,  # changed
     cert: typing.Optional[CertTypes] = None,
     verify: VerifyTypes = True,
-    timeout: TimeoutTypes = DEFAULT_TIMEOUT_CONFIG,
+    timeout: TimeoutTypes = DEV_DEFAULT_TIMEOUT_CONFIG,
     trust_env: bool = True,
     attempts: int | None = None,
     raise_for_status: bool | None = None,
@@ -729,7 +731,7 @@ def coptions(
     follow_redirects: bool = True,  # changed
     cert: typing.Optional[CertTypes] = None,
     verify: VerifyTypes = True,
-    timeout: TimeoutTypes = DEFAULT_TIMEOUT_CONFIG,
+    timeout: TimeoutTypes = DEV_DEFAULT_TIMEOUT_CONFIG,
     trust_env: bool = True,
     attempts: int | None = None,
     raise_for_status: bool | None = None,
@@ -779,7 +781,7 @@ def chead(
     follow_redirects: bool = True,  # changed
     cert: typing.Optional[CertTypes] = None,
     verify: VerifyTypes = True,
-    timeout: TimeoutTypes = DEFAULT_TIMEOUT_CONFIG,
+    timeout: TimeoutTypes = DEV_DEFAULT_TIMEOUT_CONFIG,
     trust_env: bool = True,
     attempts: int | None = None,
     raise_for_status: bool | None = None,
@@ -833,7 +835,7 @@ def cpost(
     follow_redirects: bool = True,  # changed
     cert: typing.Optional[CertTypes] = None,
     verify: VerifyTypes = True,
-    timeout: TimeoutTypes = DEFAULT_TIMEOUT_CONFIG,
+    timeout: TimeoutTypes = DEV_DEFAULT_TIMEOUT_CONFIG,
     trust_env: bool = True,
     attempts: int | None = None,
     raise_for_status: bool | None = None,
@@ -888,7 +890,7 @@ def cput(
     follow_redirects: bool = True,  # changed
     cert: typing.Optional[CertTypes] = None,
     verify: VerifyTypes = True,
-    timeout: TimeoutTypes = DEFAULT_TIMEOUT_CONFIG,
+    timeout: TimeoutTypes = DEV_DEFAULT_TIMEOUT_CONFIG,
     trust_env: bool = True,
     attempts: int | None = None,
     raise_for_status: bool | None = None,
@@ -943,7 +945,7 @@ def cpatch(
     follow_redirects: bool = True,  # changed
     cert: typing.Optional[CertTypes] = None,
     verify: VerifyTypes = True,
-    timeout: TimeoutTypes = DEFAULT_TIMEOUT_CONFIG,
+    timeout: TimeoutTypes = DEV_DEFAULT_TIMEOUT_CONFIG,
     trust_env: bool = True,
     attempts: int | None = None,
     raise_for_status: bool | None = None,
@@ -994,7 +996,7 @@ def cdelete(
     follow_redirects: bool = True,  # changed
     cert: typing.Optional[CertTypes] = None,
     verify: VerifyTypes = True,
-    timeout: TimeoutTypes = DEFAULT_TIMEOUT_CONFIG,
+    timeout: TimeoutTypes = DEV_DEFAULT_TIMEOUT_CONFIG,
     trust_env: bool = True,
     attempts: int | None = None,
     raise_for_status: bool | None = None,
