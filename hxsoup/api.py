@@ -21,7 +21,7 @@ from httpx._types import (
 )
 
 from .client import Client
-from .souptools import SoupedResponse
+from .souptools import SoupedResponse, Parsers
 
 
 def request(
@@ -45,6 +45,9 @@ def request(
     trust_env: bool = True,
     attempts: int | None = None,
     raise_for_status: bool | None = None,
+    parser: Parsers | None = None,
+    broadcasting: bool | None = True,  # changed
+    no_empty_result: bool | None = None,
 ) -> SoupedResponse:
     """
     Sends an HTTP request.
@@ -119,6 +122,9 @@ def request(
             follow_redirects=follow_redirects,
             attempts=attempts,
             raise_for_status=raise_for_status,
+            parser=parser,
+            broadcasting=broadcasting,
+            no_empty_result=no_empty_result,
         )
 
 
@@ -144,6 +150,9 @@ def stream(
     trust_env: bool = True,
     attempts: int | None = None,
     raise_for_status: bool | None = None,
+    parser: Parsers | None = None,
+    broadcasting: bool | None = True,  # changed
+    no_empty_result: bool | None = None,
 ) -> typing.Iterator[SoupedResponse]:
     """
     Alternative to `httpx.request()` that streams the response body
@@ -177,6 +186,9 @@ def stream(
             follow_redirects=follow_redirects,
             attempts=attempts,
             raise_for_status=raise_for_status,
+            parser=parser,
+            broadcasting=broadcasting,
+            no_empty_result=no_empty_result,
         ) as response:
             yield response
 
@@ -197,6 +209,9 @@ def get(
     trust_env: bool = True,
     attempts: int | None = None,
     raise_for_status: bool | None = None,
+    parser: Parsers | None = None,
+    broadcasting: bool | None = True,  # changed
+    no_empty_result: bool | None = None,
 ) -> SoupedResponse:
     """
     Sends a `GET` request.
@@ -222,6 +237,9 @@ def get(
         trust_env=trust_env,
         attempts=attempts,
         raise_for_status=raise_for_status,
+        parser=parser,
+        broadcasting=broadcasting,
+        no_empty_result=no_empty_result,
     )
 
 
@@ -241,6 +259,9 @@ def options(
     trust_env: bool = True,
     attempts: int | None = None,
     raise_for_status: bool | None = None,
+    parser: Parsers | None = None,
+    broadcasting: bool | None = True,  # changed
+    no_empty_result: bool | None = None,
 ) -> SoupedResponse:
     """
     Sends an `OPTIONS` request.
@@ -266,6 +287,9 @@ def options(
         trust_env=trust_env,
         attempts=attempts,
         raise_for_status=raise_for_status,
+        parser=parser,
+        broadcasting=broadcasting,
+        no_empty_result=no_empty_result,
     )
 
 
@@ -285,6 +309,9 @@ def head(
     trust_env: bool = True,
     attempts: int | None = None,
     raise_for_status: bool | None = None,
+    parser: Parsers | None = None,
+    broadcasting: bool | None = True,  # changed
+    no_empty_result: bool | None = None,
 ) -> SoupedResponse:
     """
     Sends a `HEAD` request.
@@ -310,6 +337,9 @@ def head(
         trust_env=trust_env,
         attempts=attempts,
         raise_for_status=raise_for_status,
+        parser=parser,
+        broadcasting=broadcasting,
+        no_empty_result=no_empty_result,
     )
 
 
@@ -333,6 +363,9 @@ def post(
     trust_env: bool = True,
     attempts: int | None = None,
     raise_for_status: bool | None = None,
+    parser: Parsers | None = None,
+    broadcasting: bool | None = True,  # changed
+    no_empty_result: bool | None = None,
 ) -> SoupedResponse:
     """
     Sends a `POST` request.
@@ -359,6 +392,9 @@ def post(
         trust_env=trust_env,
         attempts=attempts,
         raise_for_status=raise_for_status,
+        parser=parser,
+        broadcasting=broadcasting,
+        no_empty_result=no_empty_result,
     )
 
 
@@ -382,6 +418,9 @@ def put(
     trust_env: bool = True,
     attempts: int | None = None,
     raise_for_status: bool | None = None,
+    parser: Parsers | None = None,
+    broadcasting: bool | None = True,  # changed
+    no_empty_result: bool | None = None,
 ) -> SoupedResponse:
     """
     Sends a `PUT` request.
@@ -408,6 +447,9 @@ def put(
         trust_env=trust_env,
         attempts=attempts,
         raise_for_status=raise_for_status,
+        parser=parser,
+        broadcasting=broadcasting,
+        no_empty_result=no_empty_result,
     )
 
 
@@ -431,6 +473,9 @@ def patch(
     trust_env: bool = True,
     attempts: int | None = None,
     raise_for_status: bool | None = None,
+    parser: Parsers | None = None,
+    broadcasting: bool | None = True,  # changed
+    no_empty_result: bool | None = None,
 ) -> SoupedResponse:
     """
     Sends a `PATCH` request.
@@ -457,6 +502,9 @@ def patch(
         trust_env=trust_env,
         attempts=attempts,
         raise_for_status=raise_for_status,
+        parser=parser,
+        broadcasting=broadcasting,
+        no_empty_result=no_empty_result,
     )
 
 
@@ -476,6 +524,9 @@ def delete(
     trust_env: bool = True,
     attempts: int | None = None,
     raise_for_status: bool | None = None,
+    parser: Parsers | None = None,
+    broadcasting: bool | None = True,  # changed
+    no_empty_result: bool | None = None,
 ) -> SoupedResponse:
     """
     Sends a `DELETE` request.
@@ -501,4 +552,7 @@ def delete(
         trust_env=trust_env,
         attempts=attempts,
         raise_for_status=raise_for_status,
+        parser=parser,
+        broadcasting=broadcasting,
+        no_empty_result=no_empty_result,
     )
