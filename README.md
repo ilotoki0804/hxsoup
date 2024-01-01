@@ -69,7 +69,7 @@ httpx에는 raise_for_status라는 기능이 있습니다.
 
 ```python
 >>> import hxsoup.dev as hd
->>> response = hd.get("https://httpbin.org/status/404") 
+>>> response = hd.get("https://httpbin.org/status/404")
 >>> response.raise_for_status()
 Traceback (most recent call last):
     ...
@@ -193,6 +193,8 @@ BroadcastList는 `.bs`를 붙이면 브로드캐스팅 가능한 상황이 되�
 예를 들면 다음의 코드는
 
 ```python
+>>> import hxsoup.dev as hd
+>>> res = hd.get("https://python.org")
 >>> [tag.text for tag in res.soup_select("strong", broadcasting=True)]
 ['Notice:', 'A A', 'relaunched community-run job board']
 ```
@@ -200,6 +202,8 @@ BroadcastList는 `.bs`를 붙이면 브로드캐스팅 가능한 상황이 되�
 아래의 코드로 대체될 수 있습니다.
 
 ```python
+>>> import hxsoup.dev as hd
+>>> res = hd.get("https://python.org")
 >>> res.soup_select("strong", broadcasting=True).bc.text
 ['Notice:', 'A A', 'relaunched community-run job board']
 ```
@@ -207,6 +211,8 @@ BroadcastList는 `.bs`를 붙이면 브로드캐스팅 가능한 상황이 되�
 브로드캐스팅을 더 하고 싶다면 `.bc`를 또 붙이면 됩니다.
 
 ```python
+>>> import hxsoup.dev as hd
+>>> res = hd.get("https://python.org")
 >>> res.soup_select("strong", broadcasting=True).bc.text.bc[::2]
 ['Ntc:', 'AA', 'rluce omnt-u o or']
 ```
@@ -273,4 +279,5 @@ resoup과 비교했을 때 개발 경험은 hxsoup 쪽이 압도적으로 좋았
 
 ## Changelog
 
-0.1.0 (2023-12-28): 첫 릴리즈
+0.2.0 (2023-01-01): 여러 기능을 추가하고 수정.
+0.1.0 (2023-12-28): 첫 (프리)릴리즈

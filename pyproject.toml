@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hxsoup"
-version = "0.1.0"  # This version will be matched when build.py is run.
+version = "0.2.0"  # This version will be matched when build.py is run.
 description = "Various convenient features related to httpx and BeautifulSoup."
 authors = ["ilotoki0804 <ilotoki0804@gmail.com>"]
 license = "MIT"
