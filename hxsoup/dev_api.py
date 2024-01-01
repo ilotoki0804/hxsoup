@@ -19,7 +19,7 @@ from httpx._types import (
     URLTypes,
     VerifyTypes,
 )
-from .caching import freeze_dict_and_list
+from .utils import freeze_dict_and_list
 
 from .client import (
     DevClient as Client,
