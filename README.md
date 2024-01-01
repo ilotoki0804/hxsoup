@@ -60,7 +60,7 @@ httpx.ConnectError: [Errno 11001] getaddrinfo failed
 WARNING:root:Retrying...
 WARNING:root:Retrying...
 WARNING:root:Successfully retrieved: 'https://www.webtoons.com/en/'
-<Response [404 Not Found]>
+<Response [200 OK]>
 ```
 
 ### raise_for_status
@@ -95,7 +95,7 @@ Client에 `raise_for_status`를 추가하면 해당 클라이언트에서는 모
 ```python
 >>> import hxsoup.dev as hd
 >>> with hd.Client(raise_for_status=True) as client:
-...     try:        
+...     try:
 ...         client.get("https://httpbin.org/status/404")
 ...     except Exception as e:
 ...         print(e)
@@ -220,6 +220,10 @@ BroadcastList는 `.bs`를 붙이면 브로드캐스팅 가능한 상황이 되�
 
 ### `hxsoup.dev`
 
+일부 기본값을 재조정하고 caching이 포함된 모듈입니다.
+
+#### Adjusted defaults
+
 개발 중에는 일부 파라미터가 흔히 많이 사용됩니다. 예를 들어 `follow_redirects` 파라미터는 httpx에서 기본적으로 꺼져 있지만 이른 개발 사이클에 있는 경우 켜져 있는 것이 편한 경우가 많습니다.
 
 개발자의 편의를 위해 `follow_redirects`를 비롯한 몇몇 파라미터들은 httpx의 기본 설정값과는 다른 값을 이용합니다.
@@ -265,6 +269,34 @@ BroadcastList는 `.bs`를 붙이면 브로드캐스팅 가능한 상황이 되�
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 }
 ```
+
+#### cached requests
+
+활발한 개발 중에는, 특히 Jupyter를 이용할 때는, 일부 requests를 계속해서 보내게 되는 경우가 있습니다. 이는 서버에 부담을 주고 개발 속도를 늦춥니다.
+
+각 메소드의 앞에 c를 붙이면 응답이 캐싱됩니다.
+
+예를 들어 시간을 비교하면 아래와 같이 됩니다.
+
+```python
+>>> from timeit import timeit
+>>> timeit('hd.get("https://python.org")', setup="import hxsoup.dev as hd", number=10)
+0.7851526000013109
+>>> timeit('hd.cget("https://python.org")', setup="import hxsoup.dev as hd", number=10)
+0.061434000002918765
+```
+
+options/head/post/put/patch/delete들도 마찬가지로 대응되는 coptions/chead/cpost/cput/cpatch/cdelete가 있습니다.
+
+```python
+>>> from timeit import timeit
+>>> timeit('hd.post("https://httpbin.org/post")', setup="import hxsoup.dev as hd", number=10)
+9.307660000005853
+>>> timeit('hd.cpost("https://httpbin.org/post")', setup="import hxsoup.dev as hd", number=10)
+0.8557240999944042
+```
+
+캐시는 lru_cache 기본값을 사용하기 때문에 메소드 구분 없이 128개까지 저장됩니다.
 
 ## Motivation and blathers
 
