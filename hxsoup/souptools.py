@@ -48,6 +48,7 @@ class SoupTools:
         parser: Parsers | None = None,
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
+        caching: bool | None = None,
     ) -> None:
         if text is None:
             assert type(self) is not SoupTools, (
@@ -59,6 +60,7 @@ class SoupTools:
         self.parser: Parsers | None = parser
         self.broadcasting = broadcasting
         self.no_empty_result = no_empty_result
+        self.caching = caching
 
     def _raise_error(
         self,
@@ -71,12 +73,13 @@ class SoupTools:
     def soup(
         self,
         parser: Parsers | None = None,
-        caching: bool = False,
+        caching: bool | None = None,
     ) -> BeautifulSoup:
         with contextlib.suppress(AttributeError):
             return self._soup_cache
 
         parser = _resolve_default(parser, self.parser, "html.parser")
+        caching = _resolve_default(caching, self.caching, False)
 
         if not caching:
             return BeautifulSoup(self.text, parser)
@@ -88,7 +91,7 @@ class SoupTools:
     def soup_select(
         self,
         selector: str,
-        no_empty_result: bool = False,
+        no_empty_result: bool | None = None,
         parser: Parsers | None = None,
         broadcasting: Literal[True] = ...,
     ) -> TagBroadcastList:
@@ -98,7 +101,7 @@ class SoupTools:
     def soup_select(
         self,
         selector: str,
-        no_empty_result: bool = False,
+        no_empty_result: bool | None = None,
         parser: Parsers | None = None,
         broadcasting: Literal[False] = ...,
     ) -> ResultSet[Tag]:
@@ -108,18 +111,18 @@ class SoupTools:
     def soup_select(
         self,
         selector: str,
-        no_empty_result: bool = False,
+        no_empty_result: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool = False,
+        broadcasting: bool | None = None,
     ) -> ResultSet[Tag] | TagBroadcastList:
         ...
 
     def soup_select(
         self,
         selector: str,
-        no_empty_result: bool = False,
+        no_empty_result: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool = False,
+        broadcasting: bool | None = None,
     ) -> ResultSet[Tag] | TagBroadcastList:
         """response.soup(parser, **kwargs).select(selector)와 거의 같습니다만 no_empty_result라는 강력한 추가 기능을 제공합니다.
 
@@ -140,7 +143,7 @@ class SoupTools:
         no_empty_result = _resolve_default(no_empty_result, self.no_empty_result, False)
         if no_empty_result and not selected:
             self._raise_error(
-                'Result of select is empty list("[]").',
+                'Selecting result is empty list("[]").',
                 selector=selector,
             )
 
@@ -168,7 +171,7 @@ class SoupTools:
     def soup_select_one(
         self,
         selector: str,
-        no_empty_result: bool = False,
+        no_empty_result: bool | None = None,
         parser: Parsers | None = None,
     ) -> Tag | None:
         ...
@@ -176,7 +179,7 @@ class SoupTools:
     def soup_select_one(
         self,
         selector: str,
-        no_empty_result: bool = False,
+        no_empty_result: bool | None = None,
         parser: Parsers | None = None,
     ) -> Tag | None:
         """response.soup(parser, **kwargs).select_one(selector)와 거의 같습니다만 no_empty_result라는 강력한 추가 기능을 제공합니다.
@@ -201,11 +204,11 @@ class SoupTools:
             Tag | None: no_empty_result가 False일 경우(기본값)
             Tag: no_empty_result가 True일 경우(정적 검사기에 반영됨)
         """
-        select_results = self.soup(parser).select_one(selector)
+        select_results = self.soup(parser=parser).select_one(selector)
         no_empty_result = _resolve_default(no_empty_result, self.no_empty_result, False)
         if no_empty_result and select_results is None:
             self._raise_error(
-                "Result of select_one is None.",
+                "Selecting result is None.",
                 selector=selector,
             )
 
@@ -223,7 +226,7 @@ class SoupTools:
         self,
         selector: str,
         no_empty_result: bool = False,
-        use_broadcast_list: Literal[True] = ...,
+        broadcasting: Literal[True] = ...,
     ) -> TagBroadcastList:
         ...
 
@@ -232,7 +235,7 @@ class SoupTools:
         self,
         selector: str,
         no_empty_result: bool = False,
-        use_broadcast_list: Literal[False] = ...,
+        broadcasting: Literal[False] = ...,
     ) -> ResultSet[Tag]:
         ...
 
@@ -241,18 +244,18 @@ class SoupTools:
         self,
         selector: str,
         no_empty_result: bool = False,
-        use_broadcast_list: bool = True,
+        broadcasting: bool = True,
     ) -> ResultSet[Tag] | TagBroadcastList:
         ...
 
     def xml_select(
         self,
         selector: str,
-        no_empty_result: bool = False,
-        use_broadcast_list: bool = True,
+        no_empty_result: bool | None = None,
+        broadcasting: bool | None = None,
     ) -> ResultSet[Tag] | TagBroadcastList:
         """parser가 xml인 .soup_select()입니다. 자세한 내용은 .soup_select()의 docstring을 확인하세요."""
-        return self.soup_select(selector, no_empty_result, "xml", use_broadcast_list)
+        return self.soup_select(selector, no_empty_result, "xml", broadcasting)
 
     @overload
     def xml_select_one(
@@ -274,14 +277,14 @@ class SoupTools:
     def xml_select_one(
         self,
         selector: str,
-        no_empty_result: bool = False,
+        no_empty_result: bool | None = None,
     ) -> Tag | None:
         ...
 
     def xml_select_one(
         self,
         selector: str,
-        no_empty_result: bool = False,
+        no_empty_result: bool | None = None,
     ) -> Tag | None:
         """parser가 xml인 .soup_select_one()입니다. 자세한 내용은 .soup_select_one()의 docstring을 확인하세요."""
         return self.soup_select_one(selector, no_empty_result, "xml")
