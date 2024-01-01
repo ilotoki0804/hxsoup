@@ -24,3 +24,4 @@ __github_project_name__ = __title__
 from .api import delete, get, head, options, patch, post, put, request, stream
 from .client import Client, AsyncClient
 from .souptools import SoupedResponse, SoupTools
+from .options import ClientKeywordOptions

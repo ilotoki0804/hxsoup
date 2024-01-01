@@ -19,3 +19,4 @@ from .dev_api import (
 )
 from .client import DevClient as Client, DevAsyncClient as AsyncClient
 from .souptools import SoupedResponse, SoupTools
+from .options import DevClientKeywordOptions
