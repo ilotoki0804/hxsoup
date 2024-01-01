@@ -103,7 +103,7 @@ class ClientKeywordOptions:
 
     def __repr__(self) -> str:
         options_str = ", ".join(f"{key}={value}" for key, value in self._kwargs.items())
-        return f"{self.__class__}({options_str})"
+        return f"{self.__class__.__qualname__}({options_str})"
 
     def build_client(self) -> Client:
         return Client(**self._kwargs)
