@@ -38,6 +38,7 @@ requests와 bs4는 같이 설치되지만 BeatifulSoup의 추가적인 parser인
 
 > [!NOTE]
 > `hxsoup.dev`는 hxsoup와 거의 같지만 일부 기본값을 조정한 모듈입니다. hxsoup와 같다고 생각하셔도 무관합니다.
+> 자세한 내용은 뒤에서 설명합니다.
 
 연결에 끝까지 실패했을 경우:
 
