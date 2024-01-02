@@ -25,5 +25,8 @@ from .client import (
     DEV_DEFAULT_TIMEOUT_CONFIG
 )
 from .souptools import SoupedResponse, SoupTools, Parsers
-from .options import DevClientKeywordOptions as ClientKeywordOptions
+from .options import (
+    DevClientKeywordOptions as ClientKeywordOptions,
+    DevMutableClientKeywordOptions as MutableClientKeywordOptions,
+)
 from .utils import freeze_dict_and_list, clean_headers

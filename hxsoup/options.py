@@ -24,8 +24,83 @@ from .api import request
 from .souptools import SoupedResponse
 
 
+ALLOWED_KEYWORDS = frozenset({
+    "auth",
+    "params",
+    "headers",
+    "cookies",
+    "verify",
+    "cert",
+    "http1",
+    "http2",
+    "proxy",
+    "proxies",
+    "mounts",
+    "timeout",
+    "follow_redirects",
+    "limits",
+    "max_redirects",
+    "event_hooks",
+    "base_url",
+    "transport",
+    "app",
+    "trust_env",
+    "default_encoding",
+    "attempts",
+    "raise_for_status",
+    "parser",
+    "broadcasting",
+    "no_empty_result",
+})
+ALLOWED_KEYWORDS_IN_API = frozenset({
+    "params",
+    "headers",
+    "cookies",
+    "auth",
+    "proxy",
+    "proxies",
+    "follow_redirects",
+    "cert",
+    "verify",
+    "timeout",
+    "trust_env",
+    "attempts",
+    "raise_for_status",
+})
+
+
 class ClientKeywordOptions:
     __slots__ = ("_kwargs",)
+    auth: typing.Optional[AuthTypes]
+    params: typing.Optional[QueryParamTypes]
+    headers: typing.Optional[HeaderTypes]
+    cookies: typing.Optional[CookieTypes]
+    verify: VerifyTypes | None
+    cert: typing.Optional[CertTypes]
+    http1: bool | None
+    http2: bool | None
+    proxy: typing.Optional[ProxyTypes]
+    proxies: typing.Optional[ProxiesTypes]
+    mounts: typing.Optional[
+        typing.Mapping[str, typing.Optional[BaseTransport]]
+    ]
+    timeout: TimeoutTypes
+    follow_redirects: bool | None
+    limits: Limits | None
+    max_redirects: int | None
+    event_hooks: typing.Optional[
+        typing.Mapping[str, typing.List[EventHook]]
+    ]
+    base_url: URLTypes | None
+    transport: typing.Optional[BaseTransport]
+    app: typing.Optional[typing.Callable[..., typing.Any]]
+    trust_env: bool | None
+    default_encoding: typing.Union[str, typing.Callable[[bytes], str]] | None
+    attempts: int | None
+    raise_for_status: bool | None
+    parser: Parsers | None
+    broadcasting: bool | None
+    no_empty_result: bool | None
 
     def __init__(
         self,
@@ -112,28 +187,13 @@ class ClientKeywordOptions:
         return AsyncClient(**self._kwargs)
 
     def _build_api_kwargs(self, copy: bool = False) -> dict:
-        allowed_keywords = {
-            "params",
-            "headers",
-            "cookies",
-            "auth",
-            "proxy",
-            "proxies",
-            "follow_redirects",
-            "cert",
-            "verify",
-            "timeout",
-            "trust_env",
-            "attempts",
-            "raise_for_status",
-        }
-        if not copy and allowed_keywords.issuperset(self._kwargs):
+        if not copy and ALLOWED_KEYWORDS_IN_API.issuperset(self._kwargs):
             return self._kwargs
 
         return {
             key: value
             for key, value in self._kwargs.items()
-            if allowed_keywords
+            if ALLOWED_KEYWORDS_IN_API
         }
 
     def request(self, *args, **kwargs) -> SoupedResponse:
@@ -163,6 +223,24 @@ class ClientKeywordOptions:
     def delete(self, *args, **kwargs) -> SoupedResponse:
         return self.request("DELETE", *args, **kwargs)
 
+    def __getattr__(self, __name: str):
+        if __name in ALLOWED_KEYWORDS:
+            return self._kwargs[__name]
+        raise AttributeError(f"'{self.__class__.__qualname__}' object has no attribute '{__name}'")
+
+
+class MutableClientKeywordOptions(ClientKeywordOptions):
+    def __eq__(self, other: MutableClientKeywordOptions) -> bool:
+        return self._kwargs == other._kwargs
+
+    def __setattr__(self, __name: str, __value) -> None:
+        if __name == "_kwargs":
+            super().__setattr__(__name, __value)
+        elif __name in ALLOWED_KEYWORDS:
+            self.update(**{__name: __value})
+        else:
+            raise AttributeError(f"'{self.__class__.__qualname__}' object has no attribute '{__name}'")
+
 
 class DevClientKeywordOptions(ClientKeywordOptions):
     def build_client(self) -> DevClient:
@@ -170,3 +248,7 @@ class DevClientKeywordOptions(ClientKeywordOptions):
 
     def build_async_client(self) -> DevAsyncClient:
         return DevAsyncClient(**self._kwargs)
+
+
+class DevMutableClientKeywordOptions(DevClientKeywordOptions, MutableClientKeywordOptions):
+    pass
