@@ -189,7 +189,7 @@ parser을 설정할 수 있도록 합니다. BeautifulSoup의 용어로는 `feat
 
 `broadcasting` 파라미터를 참으로 하면 BroadcastList가 사용됩니다.
 
-BroadcastList는 `.bs`를 붙이면 브로드캐스팅 가능한 상황이 되고 그 뒤에 어떤 것을 붙이던 브로드캐스팅이 일어납니다.
+BroadcastList는 `.bc`를 붙이면 브로드캐스팅 가능한 상황이 되고 그 뒤에 어떤 것을 붙이던 브로드캐스팅이 일어납니다.
 
 예를 들면 다음의 코드는
 
@@ -216,6 +216,15 @@ BroadcastList는 `.bs`를 붙이면 브로드캐스팅 가능한 상황이 되�
 >>> res = hd.get("https://python.org")
 >>> res.soup_select("strong", broadcasting=True).bc.text.bc[::2]
 ['Ntc:', 'AA', 'rluce omnt-u o or']
+```
+
+### ClientKeywordOptions
+
+고정적으로 여러 request에 대해 같은 키워드를 사용해야 하는 경우가 있습니다. 대부분은 Client를 이용하면 해결되지만, AsyncClient와 Client를 같이 사용하거나, httpx.get처럼 클라이언트 없이 사용하고 싶은 경우도 있을 것입니다. 이럴 경우 이 클래스를 사용할 수 있습니다.
+
+```python
+from hxsoup import ClientKeywordOptions
+
 ```
 
 ### `hxsoup.dev`
@@ -319,6 +328,8 @@ resoup과 비교했을 때 개발 경험은 hxsoup 쪽이 압도적으로 좋았
 0.1.0을 버그가 많고 제대로 정리가 되지 않은 것들이 많습니다. 사용을 피하시기 바랍니다.
 
 ## Changelog
+
+0.3.0 (2023-01-04): ClientOptions 추가, 코드 및 버그 수정
 
 0.2.0 (2023-01-01): 여러 기능을 추가하고 수정.
 

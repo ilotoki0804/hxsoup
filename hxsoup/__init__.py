@@ -12,7 +12,7 @@ Various convenient features related to httpx and BeautifulSoup.
 
 __title__ = "hxsoup"
 __description__ = "Various convenient features related to httpx and BeautifulSoup."
-__version_info__ = (0, 2, 0)
+__version_info__ = (0, 3, 0)
 __version__ = str.join(".", map(str, __version_info__))
 __author__ = "ilotoki0804"
 __author_email__ = "ilotoki0804@gmail.com"
