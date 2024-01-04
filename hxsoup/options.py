@@ -69,7 +69,7 @@ ALLOWED_KEYWORDS_IN_API = frozenset({
 })
 
 
-class ClientKeywordOptions:
+class ClientOptions:
     __slots__ = ("_kwargs",)
     auth: typing.Optional[AuthTypes]
     params: typing.Optional[QueryParamTypes]
@@ -229,8 +229,8 @@ class ClientKeywordOptions:
         raise AttributeError(f"'{self.__class__.__qualname__}' object has no attribute '{__name}'")
 
 
-class MutableClientKeywordOptions(ClientKeywordOptions):
-    def __eq__(self, other: MutableClientKeywordOptions) -> bool:
+class MutableClientOptions(ClientOptions):
+    def __eq__(self, other: MutableClientOptions) -> bool:
         return self._kwargs == other._kwargs
 
     def __setattr__(self, __name: str, __value) -> None:
@@ -242,7 +242,7 @@ class MutableClientKeywordOptions(ClientKeywordOptions):
             raise AttributeError(f"'{self.__class__.__qualname__}' object has no attribute '{__name}'")
 
 
-class DevClientKeywordOptions(ClientKeywordOptions):
+class DevClientOptions(ClientOptions):
     def build_client(self) -> DevClient:
         return DevClient(**self._kwargs)
 
@@ -250,5 +250,5 @@ class DevClientKeywordOptions(ClientKeywordOptions):
         return DevAsyncClient(**self._kwargs)
 
 
-class DevMutableClientKeywordOptions(DevClientKeywordOptions, MutableClientKeywordOptions):
+class DevMutableClientOptions(DevClientOptions, MutableClientOptions):
     pass

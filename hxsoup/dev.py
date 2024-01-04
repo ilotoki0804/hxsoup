@@ -26,7 +26,7 @@ from .client import (
 )
 from .souptools import SoupedResponse, SoupTools, Parsers
 from .options import (
-    DevClientKeywordOptions as ClientKeywordOptions,
-    DevMutableClientKeywordOptions as MutableClientKeywordOptions,
+    DevClientOptions as ClientOptions,
+    DevMutableClientOptions as MutableClientOptions,
 )
 from .utils import freeze_dict_and_list, clean_headers

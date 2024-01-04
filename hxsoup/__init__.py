@@ -25,5 +25,5 @@ from .api import delete, get, head, options, patch, post, put, request, stream
 from .broadcast_list import BroadcastList
 from .client import Client, AsyncClient, DEV_HEADERS, DEV_DEFAULT_TIMEOUT_CONFIG
 from .souptools import SoupedResponse, SoupTools, Parsers
-from .options import ClientKeywordOptions, MutableClientKeywordOptions
+from .options import ClientOptions, MutableClientOptions
 from .utils import freeze_dict_and_list, clean_headers
