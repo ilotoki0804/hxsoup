@@ -21,6 +21,7 @@ from httpx._types import (
 from .souptools import Parsers
 from .client import Client, DevClient, AsyncClient, DevAsyncClient
 from .api import request
+from .dev_api import request as dev_request
 from .souptools import SoupedResponse
 
 
@@ -248,6 +249,12 @@ class DevClientOptions(ClientOptions):
 
     def build_async_client(self) -> DevAsyncClient:
         return DevAsyncClient(**self._kwargs)
+
+    def request(self, *args, **kwargs) -> SoupedResponse:
+        kwargs_to_use = self._build_api_kwargs(copy=True)
+        kwargs_to_use.update(kwargs)
+
+        return dev_request(*args, **kwargs_to_use)
 
 
 class DevMutableClientOptions(DevClientOptions, MutableClientOptions):
