@@ -83,7 +83,6 @@ hxsoup에서는 `raise_for_status`를 파라미터에서 그대로 사용할 수
 ```python
 >>> import hxsoup.dev as hd
 >>> response = hd.get("https://httpbin.org/status/404", raise_for_status=True)
->>> response.raise_for_status()
 Traceback (most recent call last):
     ...
 httpx.HTTPStatusError: Client error '404 NOT FOUND' for url 'https://httpbin.org/status/404'
@@ -218,13 +217,29 @@ BroadcastList는 `.bc`를 붙이면 브로드캐스팅 가능한 상황이 되�
 ['Ntc:', 'AA', 'rluce omnt-u o or']
 ```
 
-### ClientKeywordOptions
+### ClientOptions
 
 고정적으로 여러 request에 대해 같은 키워드를 사용해야 하는 경우가 있습니다. 대부분은 Client를 이용하면 해결되지만, AsyncClient와 Client를 같이 사용하거나, httpx.get처럼 클라이언트 없이 사용하고 싶은 경우도 있을 것입니다. 이럴 경우 이 클래스를 사용할 수 있습니다.
 
 ```python
-from hxsoup import ClientKeywordOptions
-
+(.venv) C:\Users\USER\Programming\vscode\git\hxsoup>py -3.12 -m asyncio
+asyncio REPL 3.12.1 (tags/v3.12.1:2305ca5, Dec  7 2023, 22:03:25) [MSC v.1937 64 bit (AMD64)] on win32
+Use "await" directly instead of "asyncio.run()".
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import asyncio
+>>> from hxsoup import ClientOptions
+>>>
+>>> options = ClientOptions(follow_redirects=True)
+>>> print(options.get("https://python.org"))
+<Response [200 OK]>
+>>> with options.build_client() as client:
+...     print(client.get("https://python.org"))
+...
+<Response [200 OK]>
+>>> async with options.build_async_client() as async_client:
+...     print(await client.get("https://python.org"))
+...
+<Response [200 OK]>
 ```
 
 ### `hxsoup.dev`
@@ -307,6 +322,31 @@ options/head/post/put/patch/delete들도 마찬가지로 대응되는 coptions/c
 
 캐시는 lru_cache 기본값을 사용하기 때문에 메소드 구분 없이 128개까지 저장됩니다.
 
+#### Client/ClientOptions
+
+Client와 ClientOptions에도 마찬가지로 기본 옵션을 사용 가능합니다.
+
+```python
+>>> import hxsoup.dev as hd
+>>> import hxsoup
+>>>
+>>> client = hxsoup.Client()
+>>> client.get("https://python.org")
+<Response [301 Moved Permanently]>
+>>>
+>>> dev_client = hd.Client()
+>>> dev_client.get("https://python.org")
+<Response [200 OK]>
+>>>
+>>> options = hxsoup.ClientOptions()
+>>> options.get("https://python.org")
+<Response [301 Moved Permanently]>
+>>>
+>>> dev_options = hd.ClientOptions()
+>>> dev_options.get("https://python.org")
+<Response [200 OK]>
+```
+
 ## License information
 
 이 프로그램의 일부는 [resoup(본인 제작)](https://github.com/ilotoki0804/resoup) 라이브러리에 있던 코드를 포함합니다.
@@ -325,7 +365,7 @@ Some part of this program contains code from [typeshed](https://github.com/pytho
 
 resoup과 비교했을 때 개발 경험은 hxsoup 쪽이 압도적으로 좋았는데, requests는 type hint가 나오기 전 라이브러리라 그런지 효율적이지만 type hint를 적용하기에는 최악이었던 반면, httpx는 따로 type stub나 typing.overload를 거의 사용하지 않았을 정도로 매우 안정적이고 typing을 적용하면서 개발하기에도 좋았습니다. (물론 resoup을 만들면서 생긴 노하우도 많이 도움이 되었겠지만요.)
 
-0.1.0을 버그가 많고 제대로 정리가 되지 않은 것들이 많습니다. 사용을 피하시기 바랍니다.
+0.1.0은 버그가 많고 제대로 정리가 되지 않은 것들이 많습니다. 사용을 피하시기 바랍니다.
 
 ## Changelog
 
