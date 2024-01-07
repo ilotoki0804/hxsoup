@@ -6,9 +6,9 @@ from typing import (
     TypeVar,
     Generic,
     Callable,
-    Self,
     overload,
 )
+from typing_extensions import Self
 from collections.abc import Callable, Iterable, Iterator
 
 from _typeshed import Incomplete
@@ -316,7 +316,7 @@ class _TagBroadcastedList(_BroadcastedList[Tag]):
         limit: int | None = None,
         **kwargs: _Strainable,
     ) -> BroadcastList[ResultSet[Any]]: ...
-    __call__ = find_all
+    __call__ = find_all  # type: ignore
     findAll = find_all
     findChildren = find_all
     @property
