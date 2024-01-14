@@ -186,7 +186,7 @@ parser을 설정할 수 있도록 합니다. BeautifulSoup의 용어로는 `feat
 
 `soup_select()`의 결과는 리스트입니다. Tag 관련 처리를 할 때에는 리스트 컴프리헨션을 이용해야 하는데, 여간 귀찮은 일이 아닙니다.
 
-`broadcasting` 파라미터를 참으로 하면 BroadcastList가 사용됩니다.
+hxsoup에서 `soup_select()`의 결과는 BroadcastList이며, 이는 여러 문제를 해결합니다.
 
 BroadcastList는 `.bc`를 붙이면 브로드캐스팅 가능한 상황이 되고 그 뒤에 어떤 것을 붙이던 브로드캐스팅이 일어납니다.
 
@@ -364,8 +364,6 @@ Some part of this program contains code from [typeshed](https://github.com/encod
 따라서 httpx을 앞으로의 프로젝트들에서 사용하기로 결정했고, resoup의 기능을 포기할 수 없었기에 requests의 경우와 마찬가지로 resoup에 대응하는 httpx에 대한 유틸리티를 만들기로 했으며 그 결과가 hxsoup입니다.
 
 resoup과 비교했을 때 개발 경험은 hxsoup 쪽이 압도적으로 좋았는데, requests는 type hint가 나오기 전 라이브러리라 그런지 효율적이지만 type hint를 적용하기에는 최악이었던 반면, httpx는 따로 type stub나 typing.overload를 거의 사용하지 않았을 정도로 매우 안정적이고 typing을 적용하면서 개발하기에도 좋았습니다. (물론 resoup을 만들면서 생긴 노하우도 많이 도움이 되었겠지만요.)
-
-0.1.0은 버그가 많고 제대로 정리가 되지 않은 것들이 많습니다. 사용을 피하시기 바랍니다.
 
 ## Changelog
 

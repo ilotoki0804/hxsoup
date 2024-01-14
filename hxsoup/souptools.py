@@ -87,43 +87,14 @@ class SoupTools:
         self._soup_cache = BeautifulSoup(self.text, parser)
         return self._soup_cache
 
-    @overload
     def soup_select(
         self,
         selector: str,
         no_empty_result: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: Literal[True] = ...,
+        broadcasting: bool | None = None,
+        **tag_kwargs,
     ) -> TagBroadcastList:
-        ...
-
-    @overload
-    def soup_select(
-        self,
-        selector: str,
-        no_empty_result: bool | None = None,
-        parser: Parsers | None = None,
-        broadcasting: Literal[False] = ...,
-    ) -> ResultSet[Tag]:
-        ...
-
-    @overload
-    def soup_select(
-        self,
-        selector: str,
-        no_empty_result: bool | None = None,
-        parser: Parsers | None = None,
-        broadcasting: bool | None = None,
-    ) -> ResultSet[Tag] | TagBroadcastList:
-        ...
-
-    def soup_select(
-        self,
-        selector: str,
-        no_empty_result: bool | None = None,
-        parser: Parsers | None = None,
-        broadcasting: bool | None = None,
-    ) -> ResultSet[Tag] | TagBroadcastList:
         """response.soup(parser, **kwargs).select(selector)와 거의 같습니다만 no_empty_result라는 강력한 추가 기능을 제공합니다.
 
         Args:
@@ -139,7 +110,7 @@ class SoupTools:
         Returns:
             ResultSet[Tag]
         """
-        selected = self.soup(parser).select(selector)
+        selected = self.soup(parser).select(selector, **tag_kwargs)
         no_empty_result = _resolve_default(no_empty_result, self.no_empty_result, False)
         if no_empty_result and not selected:
             self._raise_error(
@@ -147,7 +118,7 @@ class SoupTools:
                 selector=selector,
             )
 
-        return TagBroadcastList(selected) if broadcasting else selected
+        return TagBroadcastList(selected)
 
     @overload
     def soup_select_one(
@@ -221,41 +192,15 @@ class SoupTools:
         # functools.partial을 사용할까도 했지만 그러면 type hint와 docstring 사용이 어렵다.
         return self.soup(parser="xml")
 
-    @overload
-    def xml_select(
-        self,
-        selector: str,
-        no_empty_result: bool = False,
-        broadcasting: Literal[True] = ...,
-    ) -> TagBroadcastList:
-        ...
-
-    @overload
-    def xml_select(
-        self,
-        selector: str,
-        no_empty_result: bool = False,
-        broadcasting: Literal[False] = ...,
-    ) -> ResultSet[Tag]:
-        ...
-
-    @overload
-    def xml_select(
-        self,
-        selector: str,
-        no_empty_result: bool = False,
-        broadcasting: bool = True,
-    ) -> ResultSet[Tag] | TagBroadcastList:
-        ...
-
     def xml_select(
         self,
         selector: str,
         no_empty_result: bool | None = None,
         broadcasting: bool | None = None,
-    ) -> ResultSet[Tag] | TagBroadcastList:
+        **tag_kwargs,
+    ) -> TagBroadcastList:
         """parser가 xml인 .soup_select()입니다. 자세한 내용은 .soup_select()의 docstring을 확인하세요."""
-        return self.soup_select(selector, no_empty_result, "xml", broadcasting)
+        return self.soup_select(selector, no_empty_result, "xml", broadcasting, **tag_kwargs)
 
     @overload
     def xml_select_one(
