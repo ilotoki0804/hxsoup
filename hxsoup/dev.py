@@ -24,7 +24,7 @@ from .client import (
     DEV_HEADERS,
     DEV_DEFAULT_TIMEOUT_CONFIG
 )
-from .souptools import SoupedResponse, SoupTools, Parsers
+from .souptools import SoupedResponse, SoupTools, Parsers, NotEmptySoupTools, NotEmptySoupedResponse
 from .options import (
     DevClientOptions as ClientOptions,
     DevMutableClientOptions as MutableClientOptions,

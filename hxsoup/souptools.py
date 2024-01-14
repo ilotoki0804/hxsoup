@@ -231,6 +231,57 @@ class SoupTools:
         return self.soup_select_one(selector, no_empty_result, "xml")
 
 
+class NotEmptySoupTools(SoupTools):
+    def __init__(
+        self,
+        text: str | None,
+        *,
+        parser: Parsers | None = None,
+        caching: bool | None = None,
+    ) -> None:
+        if text is None:
+            assert type(self) is not SoupTools, (
+                "None in text field is not allowed."
+            )
+        else:
+            self.text: str = text
+
+        self.parser: Parsers | None = parser
+        self.caching = caching
+
+    def soup_select(
+        self,
+        selector: str,
+        parser: Parsers | None = None,
+        **tag_kwargs,
+    ) -> TagBroadcastList:
+        return super().soup_select(selector, no_empty_result=True, parser=parser, **tag_kwargs)
+
+    def soup_select_one(
+        self,
+        selector: str,
+        parser: Parsers | None = None,
+    ) -> Tag:
+        return super().soup_select_one(selector, no_empty_result=True, parser=parser)
+
+    # XML
+
+    def xml_select(
+        self,
+        selector: str,
+        **tag_kwargs,
+    ) -> TagBroadcastList:
+        """parser가 xml인 .soup_select()입니다. 자세한 내용은 .soup_select()의 docstring을 확인하세요."""
+        return super().soup_select(selector, no_empty_result=True, parser="xml", **tag_kwargs)
+
+    def xml_select_one(
+        self,
+        selector: str,
+    ) -> Tag:
+        """parser가 xml인 .soup_select_one()입니다. 자세한 내용은 .soup_select_one()의 docstring을 확인하세요."""
+        return self.soup_select_one(selector, "xml")
+
+
 class SoupedResponse(Response, SoupTools):
     def __init__(
         self,
@@ -252,4 +303,20 @@ class SoupedResponse(Response, SoupTools):
             **kwargs,
             url=self.url,
             status_code=self.status_code,
+        )
+
+
+class NotEmptySoupedResponse(SoupedResponse, NotEmptySoupTools):
+    def __init__(
+        self,
+        response: Response,
+        *,
+        parser: Parsers | None = None,
+        no_empty_result: bool | None = None,
+    ) -> None:
+        self.__dict__ = response.__dict__
+        super(NotEmptySoupTools, self).__init__(
+            None,
+            parser=parser,
+            no_empty_result=no_empty_result,
         )
