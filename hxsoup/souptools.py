@@ -90,7 +90,7 @@ class SoupTools:
         selector: str,
         no_empty_result: bool | None = None,
         parser: Parsers | None = None,
-        **tag_kwargs,
+        **kwargs,
     ) -> TagBroadcastList:
         """response.soup(parser, **kwargs).select(selector)와 거의 같습니다만 no_empty_result라는 강력한 추가 기능을 제공합니다.
 
@@ -107,7 +107,7 @@ class SoupTools:
         Returns:
             ResultSet[Tag]
         """
-        selected = self.soup(parser).select(selector, **tag_kwargs)
+        selected = self.soup(parser).select(selector, **kwargs)
         no_empty_result = _resolve_default(no_empty_result, self.no_empty_result, False)
         if no_empty_result and not selected:
             self._raise_error(
@@ -123,6 +123,7 @@ class SoupTools:
         selector: str,
         no_empty_result: Literal[False] = ...,
         parser: Parsers | None = None,
+        **kwargs,
     ) -> Tag | None:
         ...
 
@@ -132,6 +133,7 @@ class SoupTools:
         selector: str,
         no_empty_result: Literal[True] = ...,
         parser: Parsers | None = None,
+        **kwargs,
     ) -> Tag:
         ...
 
@@ -141,6 +143,7 @@ class SoupTools:
         selector: str,
         no_empty_result: bool | None = None,
         parser: Parsers | None = None,
+        **kwargs,
     ) -> Tag | None:
         ...
 
@@ -149,6 +152,7 @@ class SoupTools:
         selector: str,
         no_empty_result: bool | None = None,
         parser: Parsers | None = None,
+        **kwargs,
     ) -> Tag | None:
         """response.soup(parser, **kwargs).select_one(selector)와 거의 같습니다만 no_empty_result라는 강력한 추가 기능을 제공합니다.
 
@@ -172,7 +176,7 @@ class SoupTools:
             Tag | None: no_empty_result가 False일 경우(기본값)
             Tag: no_empty_result가 True일 경우(정적 검사기에 반영됨)
         """
-        select_results = self.soup(parser=parser).select_one(selector)
+        select_results = self.soup(parser=parser).select_one(selector, **kwargs)
         no_empty_result = _resolve_default(no_empty_result, self.no_empty_result, False)
         if no_empty_result and select_results is None:
             self._raise_error(
@@ -193,16 +197,17 @@ class SoupTools:
         self,
         selector: str,
         no_empty_result: bool | None = None,
-        **tag_kwargs,
+        **kwargs,
     ) -> TagBroadcastList:
         """parser가 xml인 .soup_select()입니다. 자세한 내용은 .soup_select()의 docstring을 확인하세요."""
-        return self.soup_select(selector, no_empty_result, "xml", **tag_kwargs)
+        return self.soup_select(selector, no_empty_result, "xml", **kwargs)
 
     @overload
     def xml_select_one(
         self,
         selector: str,
         no_empty_result: Literal[True] = ...,
+        **kwargs,
     ) -> Tag:
         ...
 
@@ -211,6 +216,7 @@ class SoupTools:
         self,
         selector: str,
         no_empty_result: Literal[True] = ...,
+        **kwargs,
     ) -> Tag:
         ...
 
@@ -219,6 +225,7 @@ class SoupTools:
         self,
         selector: str,
         no_empty_result: bool | None = None,
+        **kwargs,
     ) -> Tag | None:
         ...
 
@@ -226,6 +233,7 @@ class SoupTools:
         self,
         selector: str,
         no_empty_result: bool | None = None,
+        **kwargs,
     ) -> Tag | None:
         """parser가 xml인 .soup_select_one()입니다. 자세한 내용은 .soup_select_one()의 docstring을 확인하세요."""
         return self.soup_select_one(selector, no_empty_result, "xml")
@@ -253,33 +261,35 @@ class NotEmptySoupTools(SoupTools):
         self,
         selector: str,
         parser: Parsers | None = None,
-        **tag_kwargs,
+        **kwargs,
     ) -> TagBroadcastList:
-        return super().soup_select(selector, no_empty_result=True, parser=parser, **tag_kwargs)
+        return super().soup_select(selector, no_empty_result=True, parser=parser, **kwargs)
 
     def soup_select_one(
         self,
         selector: str,
         parser: Parsers | None = None,
+        **kwargs,
     ) -> Tag:
-        return super().soup_select_one(selector, no_empty_result=True, parser=parser)
+        return super().soup_select_one(selector, no_empty_result=True, parser=parser, **kwargs)
 
     # XML
 
     def xml_select(
         self,
         selector: str,
-        **tag_kwargs,
+        **kwargs,
     ) -> TagBroadcastList:
         """parser가 xml인 .soup_select()입니다. 자세한 내용은 .soup_select()의 docstring을 확인하세요."""
-        return super().soup_select(selector, no_empty_result=True, parser="xml", **tag_kwargs)
+        return super().soup_select(selector, no_empty_result=True, parser="xml", **kwargs)
 
     def xml_select_one(
         self,
         selector: str,
+        **kwargs,
     ) -> Tag:
         """parser가 xml인 .soup_select_one()입니다. 자세한 내용은 .soup_select_one()의 docstring을 확인하세요."""
-        return self.soup_select_one(selector, "xml")
+        return self.soup_select_one(selector, "xml", **kwargs)
 
 
 class SoupedResponse(Response, SoupTools):
