@@ -354,7 +354,7 @@ class Client(_HttpxClient):
         parser: Parsers | None = None,
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
-    ) -> Response:
+    ) -> SoupedResponse:
         """
         Send a `HEAD` request.
 
@@ -397,7 +397,7 @@ class Client(_HttpxClient):
         parser: Parsers | None = None,
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
-    ) -> Response:
+    ) -> SoupedResponse:
         """
         Send a `POST` request.
 
@@ -444,7 +444,7 @@ class Client(_HttpxClient):
         parser: Parsers | None = None,
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
-    ) -> Response:
+    ) -> SoupedResponse:
         """
         Send a `PUT` request.
 
@@ -491,7 +491,7 @@ class Client(_HttpxClient):
         parser: Parsers | None = None,
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
-    ) -> Response:
+    ) -> SoupedResponse:
         """
         Send a `PATCH` request.
 
@@ -534,7 +534,7 @@ class Client(_HttpxClient):
         parser: Parsers | None = None,
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
-    ) -> Response:
+    ) -> SoupedResponse:
         """
         Send a `DELETE` request.
 
@@ -782,7 +782,7 @@ class AsyncClient(_HttpxAsyncClient):
         parser: Parsers | None = None,
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
-    ) -> Response:
+    ) -> SoupedResponse:
         """
         Send a `GET` request.
 
@@ -821,7 +821,7 @@ class AsyncClient(_HttpxAsyncClient):
         parser: Parsers | None = None,
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
-    ) -> Response:
+    ) -> SoupedResponse:
         """
         Send an `OPTIONS` request.
 
@@ -860,7 +860,7 @@ class AsyncClient(_HttpxAsyncClient):
         parser: Parsers | None = None,
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
-    ) -> Response:
+    ) -> SoupedResponse:
         """
         Send a `HEAD` request.
 
@@ -903,7 +903,7 @@ class AsyncClient(_HttpxAsyncClient):
         parser: Parsers | None = None,
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
-    ) -> Response:
+    ) -> SoupedResponse:
         """
         Send a `POST` request.
 
@@ -950,7 +950,7 @@ class AsyncClient(_HttpxAsyncClient):
         parser: Parsers | None = None,
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
-    ) -> Response:
+    ) -> SoupedResponse:
         """
         Send a `PUT` request.
 
@@ -997,7 +997,7 @@ class AsyncClient(_HttpxAsyncClient):
         parser: Parsers | None = None,
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
-    ) -> Response:
+    ) -> SoupedResponse:
         """
         Send a `PATCH` request.
 
@@ -1040,7 +1040,7 @@ class AsyncClient(_HttpxAsyncClient):
         parser: Parsers | None = None,
         broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
-    ) -> Response:
+    ) -> SoupedResponse:
         """
         Send a `DELETE` request.
 
