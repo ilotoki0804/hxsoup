@@ -46,7 +46,6 @@ def request(
     attempts: int | None = None,
     raise_for_status: bool | None = None,
     parser: Parsers | None = None,
-    broadcasting: bool | None = True,  # changed
     no_empty_result: bool | None = None,
 ) -> SoupedResponse:
     """
@@ -123,7 +122,6 @@ def request(
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
@@ -151,7 +149,6 @@ def stream(
     attempts: int | None = None,
     raise_for_status: bool | None = None,
     parser: Parsers | None = None,
-    broadcasting: bool | None = True,  # changed
     no_empty_result: bool | None = None,
 ) -> typing.Iterator[SoupedResponse]:
     """
@@ -187,7 +184,6 @@ def stream(
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         ) as response:
             yield response
@@ -210,7 +206,6 @@ def get(
     attempts: int | None = None,
     raise_for_status: bool | None = None,
     parser: Parsers | None = None,
-    broadcasting: bool | None = True,  # changed
     no_empty_result: bool | None = None,
 ) -> SoupedResponse:
     """
@@ -238,7 +233,6 @@ def get(
         attempts=attempts,
         raise_for_status=raise_for_status,
         parser=parser,
-        broadcasting=broadcasting,
         no_empty_result=no_empty_result,
     )
 
@@ -260,7 +254,6 @@ def options(
     attempts: int | None = None,
     raise_for_status: bool | None = None,
     parser: Parsers | None = None,
-    broadcasting: bool | None = True,  # changed
     no_empty_result: bool | None = None,
 ) -> SoupedResponse:
     """
@@ -288,7 +281,6 @@ def options(
         attempts=attempts,
         raise_for_status=raise_for_status,
         parser=parser,
-        broadcasting=broadcasting,
         no_empty_result=no_empty_result,
     )
 
@@ -310,7 +302,6 @@ def head(
     attempts: int | None = None,
     raise_for_status: bool | None = None,
     parser: Parsers | None = None,
-    broadcasting: bool | None = True,  # changed
     no_empty_result: bool | None = None,
 ) -> SoupedResponse:
     """
@@ -338,7 +329,6 @@ def head(
         attempts=attempts,
         raise_for_status=raise_for_status,
         parser=parser,
-        broadcasting=broadcasting,
         no_empty_result=no_empty_result,
     )
 
@@ -364,7 +354,6 @@ def post(
     attempts: int | None = None,
     raise_for_status: bool | None = None,
     parser: Parsers | None = None,
-    broadcasting: bool | None = True,  # changed
     no_empty_result: bool | None = None,
 ) -> SoupedResponse:
     """
@@ -393,7 +382,6 @@ def post(
         attempts=attempts,
         raise_for_status=raise_for_status,
         parser=parser,
-        broadcasting=broadcasting,
         no_empty_result=no_empty_result,
     )
 
@@ -419,7 +407,6 @@ def put(
     attempts: int | None = None,
     raise_for_status: bool | None = None,
     parser: Parsers | None = None,
-    broadcasting: bool | None = True,  # changed
     no_empty_result: bool | None = None,
 ) -> SoupedResponse:
     """
@@ -448,7 +435,6 @@ def put(
         attempts=attempts,
         raise_for_status=raise_for_status,
         parser=parser,
-        broadcasting=broadcasting,
         no_empty_result=no_empty_result,
     )
 
@@ -474,7 +460,6 @@ def patch(
     attempts: int | None = None,
     raise_for_status: bool | None = None,
     parser: Parsers | None = None,
-    broadcasting: bool | None = True,  # changed
     no_empty_result: bool | None = None,
 ) -> SoupedResponse:
     """
@@ -503,7 +488,6 @@ def patch(
         attempts=attempts,
         raise_for_status=raise_for_status,
         parser=parser,
-        broadcasting=broadcasting,
         no_empty_result=no_empty_result,
     )
 
@@ -525,7 +509,6 @@ def delete(
     attempts: int | None = None,
     raise_for_status: bool | None = None,
     parser: Parsers | None = None,
-    broadcasting: bool | None = True,  # changed
     no_empty_result: bool | None = None,
 ) -> SoupedResponse:
     """
@@ -553,6 +536,5 @@ def delete(
         attempts=attempts,
         raise_for_status=raise_for_status,
         parser=parser,
-        broadcasting=broadcasting,
         no_empty_result=no_empty_result,
     )

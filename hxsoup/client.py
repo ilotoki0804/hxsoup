@@ -94,13 +94,11 @@ class Client(_HttpxClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> None:
         self.attempts = attempts
         self.raise_for_status = raise_for_status
         self.parser: Parsers | None = parser
-        self.broadcasting = broadcasting
         self.no_empty_result = no_empty_result
 
         return super().__init__(
@@ -146,13 +144,11 @@ class Client(_HttpxClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> SoupedResponse:
         attempts = _resolve_default(attempts, self.attempts, 1)
         raise_for_status = _resolve_default(raise_for_status, self.raise_for_status, False)
         parser = _resolve_default(parser, self.parser, allow_none=True)
-        broadcasting = _resolve_default(broadcasting, self.broadcasting, allow_none=True)
         no_empty_result = _resolve_default(no_empty_result, self.no_empty_result, allow_none=True)
 
         for i in range(attempts):
@@ -184,7 +180,6 @@ class Client(_HttpxClient):
                 return SoupedResponse(
                     response,
                     parser=parser,
-                    broadcasting=broadcasting,
                     no_empty_result=no_empty_result,
                 )
         raise  # Unreachable
@@ -209,13 +204,11 @@ class Client(_HttpxClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> typing.Iterator[SoupedResponse]:
         attempts = _resolve_default(attempts, self.attempts, 1)
         raise_for_status = _resolve_default(raise_for_status, self.raise_for_status, False)
         parser = _resolve_default(parser, self.parser, allow_none=True)
-        broadcasting = _resolve_default(broadcasting, self.broadcasting, allow_none=True)
         no_empty_result = _resolve_default(no_empty_result, self.no_empty_result, allow_none=True)
 
         for i in range(attempts):
@@ -252,7 +245,6 @@ class Client(_HttpxClient):
                     yield SoupedResponse(
                         response,
                         parser=parser,
-                        broadcasting=broadcasting,
                         no_empty_result=no_empty_result,
                     )
                 finally:
@@ -274,7 +266,6 @@ class Client(_HttpxClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> Response:
         """
@@ -295,7 +286,6 @@ class Client(_HttpxClient):
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
@@ -313,7 +303,6 @@ class Client(_HttpxClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> Response:
         """
@@ -334,7 +323,6 @@ class Client(_HttpxClient):
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
@@ -352,7 +340,6 @@ class Client(_HttpxClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> SoupedResponse:
         """
@@ -373,7 +360,6 @@ class Client(_HttpxClient):
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
@@ -395,7 +381,6 @@ class Client(_HttpxClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> SoupedResponse:
         """
@@ -420,7 +405,6 @@ class Client(_HttpxClient):
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
@@ -442,7 +426,6 @@ class Client(_HttpxClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> SoupedResponse:
         """
@@ -467,7 +450,6 @@ class Client(_HttpxClient):
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
@@ -489,7 +471,6 @@ class Client(_HttpxClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> SoupedResponse:
         """
@@ -514,7 +495,6 @@ class Client(_HttpxClient):
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
@@ -532,7 +512,6 @@ class Client(_HttpxClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> SoupedResponse:
         """
@@ -553,7 +532,6 @@ class Client(_HttpxClient):
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
@@ -590,13 +568,11 @@ class AsyncClient(_HttpxAsyncClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> None:
         self.attempts = attempts
         self.raise_for_status = raise_for_status
         self.parser: Parsers | None = parser
-        self.broadcasting = broadcasting
         self.no_empty_result = no_empty_result
 
         super().__init__(
@@ -642,13 +618,11 @@ class AsyncClient(_HttpxAsyncClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> SoupedResponse:
         attempts = _resolve_default(attempts, self.attempts, 1)
         raise_for_status = _resolve_default(raise_for_status, self.raise_for_status, False)
         parser = _resolve_default(parser, self.parser, allow_none=True)
-        broadcasting = _resolve_default(broadcasting, self.broadcasting, allow_none=True)
         no_empty_result = _resolve_default(no_empty_result, self.no_empty_result, allow_none=True)
 
         for i in range(attempts):
@@ -680,7 +654,6 @@ class AsyncClient(_HttpxAsyncClient):
                 return SoupedResponse(
                     response,
                     parser=parser,
-                    broadcasting=broadcasting,
                     no_empty_result=no_empty_result,
                 )
         raise  # Unreachable
@@ -705,7 +678,6 @@ class AsyncClient(_HttpxAsyncClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> typing.AsyncIterator[SoupedResponse]:
         """
@@ -721,7 +693,6 @@ class AsyncClient(_HttpxAsyncClient):
         attempts = _resolve_default(attempts, self.attempts, 1)
         raise_for_status = _resolve_default(raise_for_status, self.raise_for_status, False)
         parser = _resolve_default(parser, self.parser, allow_none=True)
-        broadcasting = _resolve_default(broadcasting, self.broadcasting, allow_none=True)
         no_empty_result = _resolve_default(no_empty_result, self.no_empty_result, allow_none=True)
 
         for i in range(attempts):
@@ -758,7 +729,6 @@ class AsyncClient(_HttpxAsyncClient):
                     yield SoupedResponse(
                         response,
                         parser=parser,
-                        broadcasting=broadcasting,
                         no_empty_result=no_empty_result,
                     )
                 finally:
@@ -780,7 +750,6 @@ class AsyncClient(_HttpxAsyncClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> SoupedResponse:
         """
@@ -801,7 +770,6 @@ class AsyncClient(_HttpxAsyncClient):
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
@@ -819,7 +787,6 @@ class AsyncClient(_HttpxAsyncClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> SoupedResponse:
         """
@@ -840,7 +807,6 @@ class AsyncClient(_HttpxAsyncClient):
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
@@ -858,7 +824,6 @@ class AsyncClient(_HttpxAsyncClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> SoupedResponse:
         """
@@ -879,7 +844,6 @@ class AsyncClient(_HttpxAsyncClient):
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
@@ -901,7 +865,6 @@ class AsyncClient(_HttpxAsyncClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> SoupedResponse:
         """
@@ -926,7 +889,6 @@ class AsyncClient(_HttpxAsyncClient):
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
@@ -948,7 +910,6 @@ class AsyncClient(_HttpxAsyncClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> SoupedResponse:
         """
@@ -973,7 +934,6 @@ class AsyncClient(_HttpxAsyncClient):
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
@@ -995,7 +955,6 @@ class AsyncClient(_HttpxAsyncClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> SoupedResponse:
         """
@@ -1020,7 +979,6 @@ class AsyncClient(_HttpxAsyncClient):
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
@@ -1038,7 +996,6 @@ class AsyncClient(_HttpxAsyncClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> SoupedResponse:
         """
@@ -1059,7 +1016,6 @@ class AsyncClient(_HttpxAsyncClient):
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
@@ -1096,7 +1052,6 @@ class DevClient(Client):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = True,  # changed
         no_empty_result: bool | None = None,
     ) -> None:
         return super().__init__(
@@ -1124,7 +1079,6 @@ class DevClient(Client):
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
@@ -1161,7 +1115,6 @@ class DevAsyncClient(AsyncClient):
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = True,  # changed
         no_empty_result: bool | None = None,
     ) -> None:
         super().__init__(
@@ -1189,6 +1142,5 @@ class DevAsyncClient(AsyncClient):
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )

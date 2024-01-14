@@ -46,7 +46,6 @@ class SoupTools:
         text: str | None,
         *,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
         caching: bool | None = None,
     ) -> None:
@@ -58,7 +57,6 @@ class SoupTools:
             self.text: str = text
 
         self.parser: Parsers | None = parser
-        self.broadcasting = broadcasting
         self.no_empty_result = no_empty_result
         self.caching = caching
 
@@ -92,7 +90,6 @@ class SoupTools:
         selector: str,
         no_empty_result: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         **tag_kwargs,
     ) -> TagBroadcastList:
         """response.soup(parser, **kwargs).select(selector)와 거의 같습니다만 no_empty_result라는 강력한 추가 기능을 제공합니다.
@@ -196,11 +193,10 @@ class SoupTools:
         self,
         selector: str,
         no_empty_result: bool | None = None,
-        broadcasting: bool | None = None,
         **tag_kwargs,
     ) -> TagBroadcastList:
         """parser가 xml인 .soup_select()입니다. 자세한 내용은 .soup_select()의 docstring을 확인하세요."""
-        return self.soup_select(selector, no_empty_result, "xml", broadcasting, **tag_kwargs)
+        return self.soup_select(selector, no_empty_result, "xml", **tag_kwargs)
 
     @overload
     def xml_select_one(
@@ -241,14 +237,12 @@ class SoupedResponse(Response, SoupTools):
         response: Response,
         *,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> None:
         self.__dict__ = response.__dict__
         super(Response, self).__init__(
             None,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
 
