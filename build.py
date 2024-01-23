@@ -1,6 +1,6 @@
 """Automate build.
 
-v.2023-01-04(4)
+v.2023-01-23(5)
 """
 import os
 import shutil
@@ -55,7 +55,10 @@ try:
 
     os.system('poetry build')
     if PUBLISH:
-        os.system(f'poetry publish -u __token__ -p {Path("_token.txt").read_text("utf-8")}')
+        if "PYPI_TOKEN" in os.environ:
+            raise ValueError("Environment variable `PYPI_TOKEN` is not defined. Please set it.")
+
+        os.system(f'poetry publish -u __token__ -p {os.environ["PYPI_TOKEN"]}')
 finally:
     if not LEAVE_README_BUILD_VERSION:
         os.remove("README_build.md")
