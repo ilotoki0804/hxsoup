@@ -47,7 +47,6 @@ class SoupTools:
         *,
         parser: Parsers | None = None,
         no_empty_result: bool | None = None,
-        caching: bool | None = None,
     ) -> None:
         if text is None:
             assert type(self) is not SoupTools, (
@@ -58,7 +57,6 @@ class SoupTools:
 
         self.parser: Parsers | None = parser
         self.no_empty_result = no_empty_result
-        self.caching = caching
 
     def _raise_error(
         self,
@@ -71,16 +69,11 @@ class SoupTools:
     def soup(
         self,
         parser: Parsers | None = None,
-        caching: bool | None = None,
     ) -> BeautifulSoup:
         with contextlib.suppress(AttributeError):
             return self._soup_cache
 
         parser = _resolve_default(parser, self.parser, "html.parser")
-        caching = _resolve_default(caching, self.caching, False)
-
-        if not caching:
-            return BeautifulSoup(self.text, parser)
 
         self._soup_cache = BeautifulSoup(self.text, parser)
         return self._soup_cache
@@ -245,7 +238,6 @@ class NotEmptySoupTools(SoupTools):
         text: str | None,
         *,
         parser: Parsers | None = None,
-        caching: bool | None = None,
     ) -> None:
         if text is None:
             assert type(self) is not SoupTools, (
@@ -255,7 +247,6 @@ class NotEmptySoupTools(SoupTools):
             self.text: str = text
 
         self.parser: Parsers | None = parser
-        self.caching = caching
 
     def soup_select(
         self,
