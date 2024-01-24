@@ -50,7 +50,6 @@ ALLOWED_KEYWORDS = frozenset({
     "attempts",
     "raise_for_status",
     "parser",
-    "broadcasting",
     "no_empty_result",
 })
 ALLOWED_KEYWORDS_IN_API = frozenset({
@@ -100,7 +99,6 @@ class ClientOptions:
     attempts: int | None
     raise_for_status: bool | None
     parser: Parsers | None
-    broadcasting: bool | None
     no_empty_result: bool | None
 
     def __init__(
@@ -134,7 +132,6 @@ class ClientOptions:
         attempts: int | None = None,
         raise_for_status: bool | None = None,
         parser: Parsers | None = None,
-        broadcasting: bool | None = None,
         no_empty_result: bool | None = None,
     ) -> None:
         kwargs = dict(
@@ -162,7 +159,6 @@ class ClientOptions:
             attempts=attempts,
             raise_for_status=raise_for_status,
             parser=parser,
-            broadcasting=broadcasting,
             no_empty_result=no_empty_result,
         )
         kwargs = {

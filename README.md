@@ -195,7 +195,7 @@ BroadcastList는 `.bc`를 붙이면 브로드캐스팅 가능한 상황이 되�
 ```python
 >>> import hxsoup.dev as hd
 >>> res = hd.get("https://python.org")
->>> [tag.text for tag in res.soup_select("strong", broadcasting=True)]
+>>> [tag.text for tag in res.soup_select("strong")]
 ['Notice:', 'A A', 'relaunched community-run job board']
 ```
 
@@ -204,7 +204,7 @@ BroadcastList는 `.bc`를 붙이면 브로드캐스팅 가능한 상황이 되�
 ```python
 >>> import hxsoup.dev as hd
 >>> res = hd.get("https://python.org")
->>> res.soup_select("strong", broadcasting=True).bc.text
+>>> res.soup_select("strong").bc.text
 ['Notice:', 'A A', 'relaunched community-run job board']
 ```
 
@@ -213,7 +213,7 @@ BroadcastList는 `.bc`를 붙이면 브로드캐스팅 가능한 상황이 되�
 ```python
 >>> import hxsoup.dev as hd
 >>> res = hd.get("https://python.org")
->>> res.soup_select("strong", broadcasting=True).bc.text.bc[::2]
+>>> res.soup_select("strong").bc.text.bc[::2]
 ['Ntc:', 'AA', 'rluce omnt-u o or']
 ```
 
@@ -256,7 +256,6 @@ Type "help", "copyright", "credits" or "license" for more information.
 |--------------|--------------|---------------------|
 | `follow_redirects` | False | True          |
 | `headers`          | None  | `DEV_HEADERS` |
-| `broadcasting`     | False | True          |
 
 ```python
 >>> import hxsoup
