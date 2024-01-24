@@ -1,6 +1,6 @@
 """Automate build.
 
-v.2023-01-23(5)
+v.2023-01-24(6)
 """
 import os
 import shutil
@@ -55,7 +55,7 @@ try:
 
     os.system('poetry build')
     if PUBLISH:
-        if "PYPI_TOKEN" in os.environ:
+        if "PYPI_TOKEN" not in os.environ:
             raise ValueError("Environment variable `PYPI_TOKEN` is not defined. Please set it.")
 
         os.system(f'poetry publish -u __token__ -p {os.environ["PYPI_TOKEN"]}')
