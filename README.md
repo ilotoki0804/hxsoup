@@ -12,10 +12,10 @@ hxsoup는 httpx를 기반으로 추가적인 기능을 추가한 라이브러리
 파이썬을 설치하고 터미널에 다음과 같은 명령어를 입력하세요.
 
 ```console
-pip install -U resoup
+pip install -U hxsoup
 ```
 
-requests와 bs4는 같이 설치되지만 BeatifulSoup의 추가적인 parser인 lxml와 html5lib는 기본으로 제공하지 않습니다.
+httpx와 bs4는 같이 설치되지만 BeatifulSoup의 추가적인 parser인 lxml와 html5lib는 기본으로 제공하지 않습니다.
 
 ## How to use
 
