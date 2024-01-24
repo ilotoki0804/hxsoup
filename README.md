@@ -359,13 +359,15 @@ Some part of this program contains code from [typeshed](https://github.com/encod
 
 이전에 requests의 불편한 점을 느끼고 관련 내용을 입맛에 맞게 수정한 resoup라는 라이브러리를 만들어 사용하고 있었습니다.
 
-하지만 어느 날 [ArjanCodes의 영상](https://www.youtube.com/watch?v=OPyoXx0yA0I)에서 httpx에 대해 다시 보게 되고 실제로 사용해보니 requests와 상위 호환되는 라이브러리라는 점을 알게 되었습니다.
+그러던 어느 날 [ArjanCodes의 영상](https://www.youtube.com/watch?v=OPyoXx0yA0I)에서 httpx에 대해 다시 보게 되고 실제로 사용해보니 requests와 상위 호환되는 라이브러리라는 점을 알게 되었습니다.
 
 따라서 httpx을 앞으로의 프로젝트들에서 사용하기로 결정했고, resoup의 기능을 포기할 수 없었기에 requests의 경우와 마찬가지로 resoup에 대응하는 httpx에 대한 유틸리티를 만들기로 했으며 그 결과가 hxsoup입니다.
 
 resoup과 비교했을 때 개발 경험은 hxsoup 쪽이 압도적으로 좋았는데, requests는 type hint가 나오기 전 라이브러리라 그런지 효율적이지만 type hint를 적용하기에는 최악이었던 반면, httpx는 따로 type stub나 typing.overload를 거의 사용하지 않았을 정도로 매우 안정적이고 typing을 적용하면서 개발하기에도 좋았습니다. (물론 resoup을 만들면서 생긴 노하우도 많이 도움이 되었겠지만요.)
 
 ## Changelog
+
+0.4.0 (2023-01-23): NotEmptySoupTools와 NotEmptySoupedResponse 추가, soup_select와 soup_select_one에 **kwargs 추가, 버그 수정
 
 0.3.0 (2023-01-04): ClientOptions 추가, 코드 및 버그 수정
 
