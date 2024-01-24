@@ -366,6 +366,8 @@ resoup과 비교했을 때 개발 경험은 hxsoup 쪽이 압도적으로 좋았
 
 ## Changelog
 
+0.4.1 (2023-01-24): caching 제거, broadcasting 마저 제거.
+
 0.4.0 (2023-01-23): NotEmptySoupTools와 NotEmptySoupedResponse 추가, soup_select와 soup_select_one에 **kwargs 추가, 버그 수정
 
 0.3.0 (2023-01-04): ClientOptions 추가, 코드 및 버그 수정
