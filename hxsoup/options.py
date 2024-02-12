@@ -221,9 +221,11 @@ class ClientOptions:
     def delete(self, *args, **kwargs) -> SoupedResponse:
         return self.request("DELETE", *args, **kwargs)
 
-    def __getattr__(self, __name: str):
+    def __getattr__(self, __name: str) -> typing.NoReturn:
+        # NoReturn을 사용하면 auth와 같은 파라미터들의 type hint는 막지 않으면서
+        # 잘못된 사용은 효과적으로 방지한다.
         if __name in ALLOWED_KEYWORDS:
-            return self._kwargs[__name]
+            return self._kwargs[__name]  # type: ignore
         raise AttributeError(f"'{self.__class__.__qualname__}' object has no attribute '{__name}'")
 
 
@@ -231,7 +233,8 @@ class MutableClientOptions(ClientOptions):
     def __eq__(self, other: MutableClientOptions) -> bool:
         return self._kwargs == other._kwargs
 
-    def __setattr__(self, __name: str, __value) -> None:
+    def __setattr__(self, __name: str, __value) -> typing.NoReturn:  # type: ignore
+        # ClientOptions.__getattr__에 있는 이유와 동일한 이유로 NoReturn 사용.
         if __name == "_kwargs":
             super().__setattr__(__name, __value)
         elif __name in ALLOWED_KEYWORDS:
