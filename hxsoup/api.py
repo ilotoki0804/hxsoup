@@ -1,3 +1,4 @@
+# ruff: noqa: UP007, UP006 Use httpx's convention.
 from __future__ import annotations
 
 import typing

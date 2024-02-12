@@ -9,7 +9,7 @@ from typing import (
     overload,
 )
 from typing_extensions import Self
-from collections.abc import Callable, Iterable, Iterator
+from collections.abc import Iterable, Iterator
 
 from _typeshed import Incomplete
 from bs4 import BeautifulSoup
