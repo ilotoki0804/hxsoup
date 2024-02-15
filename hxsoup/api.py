@@ -22,7 +22,7 @@ from httpx._types import (
 )
 
 from .client import Client
-from .souptools import SoupedResponse, Parsers
+from .souptools import Parsers, SoupedResponse
 
 
 def request(

@@ -1,13 +1,15 @@
 from __future__ import annotations
-import typing
-import contextlib
 
-from httpx._models import Response
-from typing import overload, Literal
+import contextlib
+import typing
+from typing import Literal, overload
+
 from bs4 import BeautifulSoup
-from bs4.element import Tag, ResultSet
-from .exceptions import EmptyResultError
+from bs4.element import ResultSet, Tag
+from httpx._models import Response
+
 from .broadcast_list import TagBroadcastList
+from .exceptions import EmptyResultError
 
 T = typing.TypeVar("T")
 
@@ -33,8 +35,9 @@ def _resolve_default(*args: T | None, allow_none: bool = False) -> T | None:
             return arg
     if allow_none:
         return None
-    raise ValueError(f"No matched arguments. args: {args}"
-                     "This message is provided because allow_none parameter was False.")
+    raise ValueError(
+        f"No matched arguments. args: {args}" "This message is provided because allow_none parameter was False."
+    )
 
 
 Parsers = Literal["html.parser", "html", "lxml", "lxml-xml", "xml", "html5lib", "html5"]
@@ -49,9 +52,7 @@ class SoupTools:
         no_empty_result: bool | None = None,
     ) -> None:
         if text is None:
-            assert type(self) is not SoupTools, (
-                "None in text field is not allowed."
-            )
+            assert type(self) is not SoupTools, "None in text field is not allowed."
         else:
             self.text: str = text
 
@@ -240,9 +241,7 @@ class NotEmptySoupTools(SoupTools):
         parser: Parsers | None = None,
     ) -> None:
         if text is None:
-            assert type(self) is not SoupTools, (
-                "None in text field is not allowed."
-            )
+            assert type(self) is not SoupTools, "None in text field is not allowed."
         else:
             self.text: str = text
 

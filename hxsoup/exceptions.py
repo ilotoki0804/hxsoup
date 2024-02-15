@@ -4,10 +4,16 @@ from httpx import codes
 
 
 class EmptyResultError(Exception):
-    def __init__(self, error_message: str, selector: str | None = None, url=None, status_code: int | None = None) -> None:
+    def __init__(
+        self,
+        error_message: str,
+        selector: str | None = None,
+        url=None,
+        status_code: int | None = None,
+    ) -> None:
         error_message += (
-            ' This error happens probably because of invalid selector or URL. '
-            'Check whether selector and URL are both valid.\n'
+            " This error happens probably because of invalid selector or URL. "
+            "Check whether selector and URL are both valid.\n"
         )
 
         if status_code is not None:
@@ -16,6 +22,6 @@ class EmptyResultError(Exception):
         if url is not None:
             error_message += f"URL: {url}, "
 
-        error_message += f'selector: {selector!r}'
+        error_message += f"selector: {selector!r}"
 
         super().__init__(error_message)

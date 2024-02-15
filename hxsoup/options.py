@@ -19,55 +19,57 @@ from httpx._types import (
     VerifyTypes,
 )
 
-from .souptools import Parsers
-from .client import Client, DevClient, AsyncClient, DevAsyncClient
 from .api import request
+from .client import AsyncClient, Client, DevAsyncClient, DevClient
 from .dev_api import request as dev_request
-from .souptools import SoupedResponse
+from .souptools import Parsers, SoupedResponse
 
-
-ALLOWED_KEYWORDS = frozenset({
-    "auth",
-    "params",
-    "headers",
-    "cookies",
-    "verify",
-    "cert",
-    "http1",
-    "http2",
-    "proxy",
-    "proxies",
-    "mounts",
-    "timeout",
-    "follow_redirects",
-    "limits",
-    "max_redirects",
-    "event_hooks",
-    "base_url",
-    "transport",
-    "app",
-    "trust_env",
-    "default_encoding",
-    "attempts",
-    "raise_for_status",
-    "parser",
-    "no_empty_result",
-})
-ALLOWED_KEYWORDS_IN_API = frozenset({
-    "params",
-    "headers",
-    "cookies",
-    "auth",
-    "proxy",
-    "proxies",
-    "follow_redirects",
-    "cert",
-    "verify",
-    "timeout",
-    "trust_env",
-    "attempts",
-    "raise_for_status",
-})
+ALLOWED_KEYWORDS = frozenset(
+    {
+        "auth",
+        "params",
+        "headers",
+        "cookies",
+        "verify",
+        "cert",
+        "http1",
+        "http2",
+        "proxy",
+        "proxies",
+        "mounts",
+        "timeout",
+        "follow_redirects",
+        "limits",
+        "max_redirects",
+        "event_hooks",
+        "base_url",
+        "transport",
+        "app",
+        "trust_env",
+        "default_encoding",
+        "attempts",
+        "raise_for_status",
+        "parser",
+        "no_empty_result",
+    }
+)
+ALLOWED_KEYWORDS_IN_API = frozenset(
+    {
+        "params",
+        "headers",
+        "cookies",
+        "auth",
+        "proxy",
+        "proxies",
+        "follow_redirects",
+        "cert",
+        "verify",
+        "timeout",
+        "trust_env",
+        "attempts",
+        "raise_for_status",
+    }
+)
 
 
 class ClientOptions:
@@ -82,16 +84,12 @@ class ClientOptions:
     http2: bool | None
     proxy: typing.Optional[ProxyTypes]
     proxies: typing.Optional[ProxiesTypes]
-    mounts: typing.Optional[
-        typing.Mapping[str, typing.Optional[BaseTransport]]
-    ]
+    mounts: typing.Optional[typing.Mapping[str, typing.Optional[BaseTransport]]]
     timeout: TimeoutTypes
     follow_redirects: bool | None
     limits: Limits | None
     max_redirects: int | None
-    event_hooks: typing.Optional[
-        typing.Mapping[str, typing.List[EventHook]]
-    ]
+    event_hooks: typing.Optional[typing.Mapping[str, typing.List[EventHook]]]
     base_url: URLTypes | None
     transport: typing.Optional[BaseTransport]
     app: typing.Optional[typing.Callable[..., typing.Any]]
@@ -115,16 +113,12 @@ class ClientOptions:
         http2: bool | None = None,
         proxy: typing.Optional[ProxyTypes] = None,
         proxies: typing.Optional[ProxiesTypes] = None,
-        mounts: typing.Optional[
-            typing.Mapping[str, typing.Optional[BaseTransport]]
-        ] = None,
+        mounts: typing.Optional[typing.Mapping[str, typing.Optional[BaseTransport]]] = None,
         timeout: TimeoutTypes = None,
         follow_redirects: bool | None = None,
         limits: Limits | None = None,
         max_redirects: int | None = None,
-        event_hooks: typing.Optional[
-            typing.Mapping[str, typing.List[EventHook]]
-        ] = None,
+        event_hooks: typing.Optional[typing.Mapping[str, typing.List[EventHook]]] = None,
         base_url: URLTypes | None = None,
         transport: typing.Optional[BaseTransport] = None,
         app: typing.Optional[typing.Callable[..., typing.Any]] = None,
@@ -162,11 +156,7 @@ class ClientOptions:
             parser=parser,
             no_empty_result=no_empty_result,
         )
-        kwargs = {
-            key: value
-            for key, value in kwargs.items()
-            if value is not None
-        }
+        kwargs = {key: value for key, value in kwargs.items() if value is not None}
         if hasattr(self, "_kwargs"):
             self._kwargs.update(kwargs)
         else:
@@ -188,11 +178,7 @@ class ClientOptions:
         if not copy and ALLOWED_KEYWORDS_IN_API.issuperset(self._kwargs):
             return self._kwargs
 
-        return {
-            key: value
-            for key, value in self._kwargs.items()
-            if ALLOWED_KEYWORDS_IN_API
-        }
+        return {key: value for key, value in self._kwargs.items() if ALLOWED_KEYWORDS_IN_API}
 
     def request(self, *args, **kwargs) -> SoupedResponse:
         kwargs_to_use = self._build_api_kwargs(copy=True)

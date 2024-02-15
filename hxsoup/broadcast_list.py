@@ -1,19 +1,14 @@
 from __future__ import annotations
 
 import functools
-from typing import (
-    Any,
-    TypeVar,
-    Generic,
-    Callable,
-)
+from typing import Any, Callable, Generic, TypeVar
 
 from bs4.element import Tag
 
 from .utils import FullDunder
 
-T = TypeVar('T')
-T_co = TypeVar('T_co', covariant=True)
+T = TypeVar("T")
+T_co = TypeVar("T_co", covariant=True)
 
 
 class BroadcastList(list, Generic[T]):

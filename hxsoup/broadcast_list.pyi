@@ -1,68 +1,54 @@
 from __future__ import annotations
 
 import functools
-from typing import (
-    Any,
-    TypeVar,
-    Generic,
-    Callable,
-    overload,
-)
-from typing_extensions import Self
 from collections.abc import Iterable, Iterator
+from typing import Any, Callable, Generic, TypeVar, overload
 
 from _typeshed import Incomplete
 from bs4 import BeautifulSoup
+from bs4.element import (
+    NavigableString,
+    PageElement,
+    ResultSet,
+    SoupStrainer,
+    Tag,
+    _PageElementT,
+    _Strainable,
+)
 from bs4.formatter import Formatter, _EntitySubstitution
-from bs4.element import Tag, _PageElementT, _Strainable, SoupStrainer, NavigableString, ResultSet, PageElement
+from typing_extensions import Self
 
 from .utils import FullDunder
 
-T = TypeVar('T')
-T_co = TypeVar('T_co', covariant=True)
-
+T = TypeVar("T")
+T_co = TypeVar("T_co", covariant=True)
 
 class BroadcastList(list[T]):
     @property
     def bc(self) -> _BroadcastedList[T]:
         return _BroadcastedList(self)
 
-
 class _BroadcastedList(FullDunder, Generic[T_co]):
     _broadcastlist_value: list
 
-    def _callable_attr_broadcast(self, *args, **kwargs) -> BroadcastList:
-        ...
-
-    def __init__(self, broadcastlist: BroadcastList[T_co]) -> None:
-        ...
-
-    def __getattr__(self, __name: str) -> Callable[..., BroadcastList] | BroadcastList:
-        ...
-
-    def __setattr__(self, name: str, value) -> None:
-        ...
-
-    def __str__(self) -> str:
-        ...
+    def _callable_attr_broadcast(self, *args, **kwargs) -> BroadcastList: ...
+    def __init__(self, broadcastlist: BroadcastList[T_co]) -> None: ...
+    def __getattr__(self, __name: str) -> Callable[..., BroadcastList] | BroadcastList: ...
+    def __setattr__(self, name: str, value) -> None: ...
+    def __str__(self) -> str: ...
 
     __repr__ = __str__  # type: ignore
 
-    def broadcast_str(self) -> BroadcastList[str]:
-        ...
-
-    def broadcast_repr(self) -> BroadcastList[str]:
-        ...
-
+    def broadcast_str(self) -> BroadcastList[str]: ...
+    def broadcast_repr(self) -> BroadcastList[str]: ...
 
 class TagBroadcastList(BroadcastList[Tag]):
     @property
-    def bc(self) -> _TagBroadcastedList:
-        ...
-
+    def bc(self) -> _TagBroadcastedList: ...
 
 class _TagBroadcastedList(_BroadcastedList[Tag]):
     """Chaining BroadcastED list especially for Tags."""
+
     parent: BroadcastList[Tag | None]
     previous_element: BroadcastList[PageElement | None]
     next_element: BroadcastList[PageElement | None]
@@ -82,7 +68,12 @@ class _TagBroadcastedList(_BroadcastedList[Tag]):
     previousSibling: BroadcastList[PageElement | None]
     @property
     def stripped_strings(self) -> BroadcastList[Iterator[str]]: ...
-    def get_text(self, separator: str = "", strip: bool = False, types: tuple[type[NavigableString], ...] = ...) -> BroadcastList[str]: ...
+    def get_text(
+        self,
+        separator: str = "",
+        strip: bool = False,
+        types: tuple[type[NavigableString], ...] = ...,
+    ) -> BroadcastList[str]: ...
     getText = get_text
     @property
     def text(self) -> BroadcastList[str]: ...
@@ -292,12 +283,20 @@ class _TagBroadcastedList(_BroadcastedList[Tag]):
     @overload
     def prettify(self, encoding: None = None, formatter: str | Formatter = "minimal") -> BroadcastList[str]: ...
     def decode_contents(
-        self, indent_level: int | None = None, eventual_encoding: str = "utf-8", formatter: str | Formatter = "minimal"
+        self,
+        indent_level: int | None = None,
+        eventual_encoding: str = "utf-8",
+        formatter: str | Formatter = "minimal",
     ) -> BroadcastList[str]: ...
     def encode_contents(
-        self, indent_level: int | None = None, encoding: str = "utf-8", formatter: str | Formatter = "minimal"
+        self,
+        indent_level: int | None = None,
+        encoding: str = "utf-8",
+        formatter: str | Formatter = "minimal",
     ) -> BroadcastList[bytes]: ...
-    def renderContents(self, encoding: str = "utf-8", prettyPrint: bool = False, indentLevel: int = 0) -> BroadcastList[bytes]: ...
+    def renderContents(
+        self, encoding: str = "utf-8", prettyPrint: bool = False, indentLevel: int = 0
+    ) -> BroadcastList[bytes]: ...
     def find(
         self,
         name: _Strainable | None = None,
@@ -324,7 +323,12 @@ class _TagBroadcastedList(_BroadcastedList[Tag]):
     @property
     def descendants(self) -> BroadcastList[Iterable[PageElement]]: ...
     def select_one(
-        self, selector: str, namespaces: Incomplete | None = None, *, flags: int = ..., custom: dict[str, str] | None = ...
+        self,
+        selector: str,
+        namespaces: Incomplete | None = None,
+        *,
+        flags: int = ...,
+        custom: dict[str, str] | None = ...,
     ) -> BroadcastList[Tag | None]: ...
     def select(
         self,
@@ -338,4 +342,3 @@ class _TagBroadcastedList(_BroadcastedList[Tag]):
     def childGenerator(self) -> BroadcastList[Iterable[PageElement]]: ...
     def recursiveChildGenerator(self) -> BroadcastList[Iterable[PageElement]]: ...
     def has_key(self, key: str) -> BroadcastList[bool]: ...
-

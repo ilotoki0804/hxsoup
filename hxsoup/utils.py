@@ -1,18 +1,13 @@
 from __future__ import annotations
 
 import functools
-from typing import (
-    Any,
-    Hashable,
-    Mapping,
-    Iterable,
-    Callable,
-)
+import logging
+from typing import Any, Callable, Hashable, Iterable, Mapping
 
 from frozendict import frozendict
-import logging
 
 logger = logging.getLogger("hxsoup_logger")
+
 
 def made_it_hashable(value, alert: bool = True, error: bool = False) -> Any:
     if isinstance(value, Hashable):
@@ -23,13 +18,17 @@ def made_it_hashable(value, alert: bool = True, error: bool = False) -> Any:
     if isinstance(value, Iterable):  # Mapping같이 특정한 경우에는 값이 손상될 수 있음.
         return tuple(value)
     if error:
-        raise TypeError(f"type of '{value}' {type(value)}, "
-                        "which is nether hashable, iterable(like list), nor mapping(like dict).")
+        raise TypeError(
+            f"type of '{value}' {type(value)}, "
+            "which is nether hashable, iterable(like list), nor mapping(like dict)."
+        )
     if alert:
-        logger.warning(f"type of '{value}' {type(value)}, "
-                       "which is nether hashable, iterable(like list), nor mapping(like dict). "
-                       "So this thing will not be converted to hashable, that means this function "
-                       "cannot be cached if your're using things like lru_cache.")
+        logger.warning(
+            f"type of '{value}' {type(value)}, "
+            "which is nether hashable, iterable(like list), nor mapping(like dict). "
+            "So this thing will not be converted to hashable, that means this function "
+            "cannot be cached if your're using things like lru_cache."
+        )
     return value
 
 
@@ -39,15 +38,16 @@ def freeze_dict_and_list(alert: bool = True, error: bool = False):
     만악 dict와 list 외의 mutable이 있다면 아무런 변환 없이 넘깁니다.
     이때 alert가 True라면 경고를 내보내고, error가 True이면 exception이 나갑니다.
     """
+
     def wrapper(func: Callable):
         @functools.wraps(func)
         def inner(*args, **kwargs):
             # 속도를 위해 제너레이터 컴프리헨션 대신 리스트 > 튜플 변환 사용 (약 1.5~2배 가량 빠름)
             new_args = [made_it_hashable(argument, alert, error) for argument in args]
-            new_kwargs = {kwname: made_it_hashable(kwvalue)
-                          for kwname, kwvalue in kwargs.items()}
+            new_kwargs = {kwname: made_it_hashable(kwvalue) for kwname, kwvalue in kwargs.items()}
             logger.debug((new_args, new_kwargs))
             return func(*new_args, **new_kwargs)
+
         return inner
 
     return wrapper
@@ -55,7 +55,7 @@ def freeze_dict_and_list(alert: bool = True, error: bool = False):
 
 def clean_headers(raw_headers: str):
     is_name = True
-    name: str = ''
+    name: str = ""
     headers = {}
     for i, line in enumerate(filter(None, raw_headers.splitlines())):
         if not is_name:
@@ -63,8 +63,8 @@ def clean_headers(raw_headers: str):
             is_name = True
             continue
 
-        if line[-1] != ':':
-            raise ValueError(f'Unexpected string: {line} on {i + 1}th line.')
+        if line[-1] != ":":
+            raise ValueError(f"Unexpected string: {line} on {i + 1}th line.")
 
         name = line[:-1]
         is_name = False
@@ -77,6 +77,7 @@ class FullDunder:
     Thanks to [this post](https://www.reddit.com/r/Python/comments/br9ok2/list_of_all_python_dunder_methods/),
     for making a full list of Python dunder methods.
     """
+
     def _callable_dunder_getattr(self, __name, *args, **kwargs):
         return __name, args, kwargs
 

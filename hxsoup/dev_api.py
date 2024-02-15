@@ -1,9 +1,9 @@
 # ruff: noqa: UP007, UP006 Use httpx's convention.
 from __future__ import annotations
-from functools import lru_cache
 
 import typing
 from contextlib import contextmanager
+from functools import lru_cache
 
 from httpx._types import (
     AuthTypes,
@@ -20,14 +20,11 @@ from httpx._types import (
     URLTypes,
     VerifyTypes,
 )
-from .utils import freeze_dict_and_list
 
-from .client import (
-    DevClient as Client,
-    DEV_DEFAULT_TIMEOUT_CONFIG,
-    DEFAULT_TIMEOUT_CONFIG,
-)
+from .client import DEFAULT_TIMEOUT_CONFIG, DEV_DEFAULT_TIMEOUT_CONFIG
+from .client import DevClient as Client
 from .souptools import Parsers, SoupedResponse
+from .utils import freeze_dict_and_list
 
 
 def request(

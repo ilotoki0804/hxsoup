@@ -1,18 +1,14 @@
 # ruff: noqa: UP007, UP006 Use httpx's convention.
 from __future__ import annotations
 
-from contextlib import asynccontextmanager, contextmanager
 import typing
-from frozendict import frozendict
+from contextlib import asynccontextmanager, contextmanager
 
-from httpx import (
-    AsyncClient as _HttpxAsyncClient,
-    Client as _HttpxClient,
-    RequestError,
-    HTTPStatusError,
-    Response,
-)
-from httpx._client import USE_CLIENT_DEFAULT, UseClientDefault, EventHook
+from frozendict import frozendict
+from httpx import AsyncClient as _HttpxAsyncClient
+from httpx import Client as _HttpxClient
+from httpx import HTTPStatusError, RequestError, Response
+from httpx._client import USE_CLIENT_DEFAULT, EventHook, UseClientDefault
 from httpx._config import (
     DEFAULT_LIMITS,
     DEFAULT_MAX_REDIRECTS,
@@ -37,29 +33,31 @@ from httpx._types import (
     VerifyTypes,
 )
 
-from .utils import logger
 from .souptools import Parsers, SoupedResponse, _resolve_default
+from .utils import logger
 
-DEV_HEADERS = frozendict({
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "Accept-Encoding": "gzip, deflate, br",
-    "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
-    "Sec-Ch-Ua": '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-    "Sec-Ch-Ua-Arch": '"x86"',
-    "Sec-Ch-Ua-Bitness": '"64"',
-    "Sec-Ch-Ua-Full-Version-List": '"Not_A Brand";v="8.0.0.0", "Chromium";v="120.0.6099.130", "Google Chrome";v="120.0.6099.130"',
-    "Sec-Ch-Ua-Mobile": "?0",
-    "Sec-Ch-Ua-Model": '""',
-    "Sec-Ch-Ua-Platform": '"Windows"',
-    "Sec-Ch-Ua-Platform-Version": '"15.0.0"',
-    "Sec-Ch-Ua-Wow64": "?0",
-    "Sec-Fetch-Dest": "document",
-    "Sec-Fetch-Mode": "navigate",
-    "Sec-Fetch-Site": "none",
-    "Sec-Fetch-User": "?1",
-    "Upgrade-Insecure-Requests": "1",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-})
+DEV_HEADERS = frozendict(
+    {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Sec-Ch-Ua": '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+        "Sec-Ch-Ua-Arch": '"x86"',
+        "Sec-Ch-Ua-Bitness": '"64"',
+        "Sec-Ch-Ua-Full-Version-List": '"Not_A Brand";v="8.0.0.0", "Chromium";v="120.0.6099.130", "Google Chrome";v="120.0.6099.130"',
+        "Sec-Ch-Ua-Mobile": "?0",
+        "Sec-Ch-Ua-Model": '""',
+        "Sec-Ch-Ua-Platform": '"Windows"',
+        "Sec-Ch-Ua-Platform-Version": '"15.0.0"',
+        "Sec-Ch-Ua-Wow64": "?0",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    }
+)
 DEV_DEFAULT_TIMEOUT_CONFIG = 5.0
 
 
@@ -77,16 +75,12 @@ class Client(_HttpxClient):
         http2: bool = False,
         proxy: typing.Optional[ProxyTypes] = None,
         proxies: typing.Optional[ProxiesTypes] = None,
-        mounts: typing.Optional[
-            typing.Mapping[str, typing.Optional[BaseTransport]]
-        ] = None,
+        mounts: typing.Optional[typing.Mapping[str, typing.Optional[BaseTransport]]] = None,
         timeout: TimeoutTypes = DEFAULT_TIMEOUT_CONFIG,
         follow_redirects: bool = False,
         limits: Limits = DEFAULT_LIMITS,
         max_redirects: int = DEFAULT_MAX_REDIRECTS,
-        event_hooks: typing.Optional[
-            typing.Mapping[str, typing.List[EventHook]]
-        ] = None,
+        event_hooks: typing.Optional[typing.Mapping[str, typing.List[EventHook]]] = None,
         base_url: URLTypes = "",
         transport: typing.Optional[BaseTransport] = None,
         app: typing.Optional[typing.Callable[..., typing.Any]] = None,
@@ -551,16 +545,12 @@ class AsyncClient(_HttpxAsyncClient):
         http2: bool = False,
         proxy: typing.Optional[ProxyTypes] = None,
         proxies: typing.Optional[ProxiesTypes] = None,
-        mounts: typing.Optional[
-            typing.Mapping[str, typing.Optional[AsyncBaseTransport]]
-        ] = None,
+        mounts: typing.Optional[typing.Mapping[str, typing.Optional[AsyncBaseTransport]]] = None,
         timeout: TimeoutTypes = DEFAULT_TIMEOUT_CONFIG,
         follow_redirects: bool = False,
         limits: Limits = DEFAULT_LIMITS,
         max_redirects: int = DEFAULT_MAX_REDIRECTS,
-        event_hooks: typing.Optional[
-            typing.Mapping[str, typing.List[typing.Callable[..., typing.Any]]]
-        ] = None,
+        event_hooks: typing.Optional[typing.Mapping[str, typing.List[typing.Callable[..., typing.Any]]]] = None,
         base_url: URLTypes = "",
         transport: typing.Optional[AsyncBaseTransport] = None,
         app: typing.Optional[typing.Callable[..., typing.Any]] = None,
@@ -1035,16 +1025,12 @@ class DevClient(Client):
         http2: bool = False,
         proxy: typing.Optional[ProxyTypes] = None,
         proxies: typing.Optional[ProxiesTypes] = None,
-        mounts: typing.Optional[
-            typing.Mapping[str, typing.Optional[BaseTransport]]
-        ] = None,
+        mounts: typing.Optional[typing.Mapping[str, typing.Optional[BaseTransport]]] = None,
         timeout: TimeoutTypes = DEV_DEFAULT_TIMEOUT_CONFIG,  # changed
         follow_redirects: bool = True,  # changed
         limits: Limits = DEFAULT_LIMITS,
         max_redirects: int = DEFAULT_MAX_REDIRECTS,
-        event_hooks: typing.Optional[
-            typing.Mapping[str, typing.List[EventHook]]
-        ] = None,
+        event_hooks: typing.Optional[typing.Mapping[str, typing.List[EventHook]]] = None,
         base_url: URLTypes = "",
         transport: typing.Optional[BaseTransport] = None,
         app: typing.Optional[typing.Callable[..., typing.Any]] = None,
@@ -1098,16 +1084,12 @@ class DevAsyncClient(AsyncClient):
         http2: bool = False,
         proxy: typing.Optional[ProxyTypes] = None,
         proxies: typing.Optional[ProxiesTypes] = None,
-        mounts: typing.Optional[
-            typing.Mapping[str, typing.Optional[AsyncBaseTransport]]
-        ] = None,
+        mounts: typing.Optional[typing.Mapping[str, typing.Optional[AsyncBaseTransport]]] = None,
         timeout: TimeoutTypes = DEV_DEFAULT_TIMEOUT_CONFIG,  # changed
         follow_redirects: bool = True,  # changed
         limits: Limits = DEFAULT_LIMITS,
         max_redirects: int = DEFAULT_MAX_REDIRECTS,
-        event_hooks: typing.Optional[
-            typing.Mapping[str, typing.List[typing.Callable[..., typing.Any]]]
-        ] = None,
+        event_hooks: typing.Optional[typing.Mapping[str, typing.List[typing.Callable[..., typing.Any]]]] = None,
         base_url: URLTypes = "",
         transport: typing.Optional[AsyncBaseTransport] = None,
         app: typing.Optional[typing.Callable[..., typing.Any]] = None,
