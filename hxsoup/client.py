@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 from contextlib import asynccontextmanager, contextmanager
-import logging
 import typing
 from frozendict import frozendict
 
@@ -38,6 +37,7 @@ from httpx._types import (
     VerifyTypes,
 )
 
+from .utils import logger
 from .souptools import Parsers, SoupedResponse, _resolve_default
 
 DEV_HEADERS = frozendict({
@@ -172,10 +172,10 @@ class Client(_HttpxClient):
             except (RequestError, HTTPStatusError):
                 if i == attempts - 1:
                     raise
-                logging.warning("Retrying...")
+                logger.warning("Retrying...")
             else:
                 if i > 0:
-                    logging.warning(f"Successfully retrieved: '{url}'")
+                    logger.warning(f"Successfully retrieved: '{url}'")
                 if raise_for_status:
                     response.raise_for_status()
                 return SoupedResponse(
@@ -236,10 +236,10 @@ class Client(_HttpxClient):
             except (RequestError, HTTPStatusError):
                 if i == attempts - 1:
                     raise
-                logging.warning("Retrying...")
+                logger.warning("Retrying...")
             else:
                 if i > 0:
-                    logging.warning(f"Successfully retrieved: '{url}'")
+                    logger.warning(f"Successfully retrieved: '{url}'")
                 if raise_for_status:
                     response.raise_for_status()
                 try:
@@ -646,10 +646,10 @@ class AsyncClient(_HttpxAsyncClient):
             except (RequestError, HTTPStatusError):
                 if i == attempts - 1:
                     raise
-                logging.warning("Retrying...")
+                logger.warning("Retrying...")
             else:
                 if i > 0:
-                    logging.warning(f"Successfully retrieved: '{url}'")
+                    logger.warning(f"Successfully retrieved: '{url}'")
                 if raise_for_status:
                     response.raise_for_status()
                 return SoupedResponse(
@@ -720,10 +720,10 @@ class AsyncClient(_HttpxAsyncClient):
             except (RequestError, HTTPStatusError):
                 if i == attempts - 1:
                     raise
-                logging.warning("Retrying...")
+                logger.warning("Retrying...")
             else:
                 if i > 0:
-                    logging.warning(f"Successfully retrieved: '{url}'")
+                    logger.warning(f"Successfully retrieved: '{url}'")
                 if raise_for_status:
                     response.raise_for_status()
                 try:

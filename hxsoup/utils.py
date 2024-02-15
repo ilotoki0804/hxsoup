@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import functools
-import logging
 from typing import (
     Any,
     Hashable,
@@ -11,7 +10,9 @@ from typing import (
 )
 
 from frozendict import frozendict
+import logging
 
+logger = logging.getLogger("hxsoup_logger")
 
 def made_it_hashable(value, alert: bool = True, error: bool = False) -> Any:
     if isinstance(value, Hashable):
@@ -25,10 +26,10 @@ def made_it_hashable(value, alert: bool = True, error: bool = False) -> Any:
         raise TypeError(f"type of '{value}' {type(value)}, "
                         "which is nether hashable, iterable(like list), nor mapping(like dict).")
     if alert:
-        logging.warning(f"type of '{value}' {type(value)}, "
-                        "which is nether hashable, iterable(like list), nor mapping(like dict). "
-                        "So this thing will not be converted to hashable, that means this function "
-                        "cannot be cached if your're using things like lru_cache.")
+        logger.warning(f"type of '{value}' {type(value)}, "
+                       "which is nether hashable, iterable(like list), nor mapping(like dict). "
+                       "So this thing will not be converted to hashable, that means this function "
+                       "cannot be cached if your're using things like lru_cache.")
     return value
 
 
@@ -45,7 +46,7 @@ def freeze_dict_and_list(alert: bool = True, error: bool = False):
             new_args = [made_it_hashable(argument, alert, error) for argument in args]
             new_kwargs = {kwname: made_it_hashable(kwvalue)
                           for kwname, kwvalue in kwargs.items()}
-            logging.debug((new_args, new_kwargs))
+            logger.debug((new_args, new_kwargs))
             return func(*new_args, **new_kwargs)
         return inner
 
