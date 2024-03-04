@@ -17,7 +17,7 @@ class EmptyResultError(Exception):
         )
 
         if status_code is not None:
-            error_message += f"status code: HTTP {status_code} {codes(200).name}, "
+            error_message += f"status code: HTTP {status_code} {codes(status_code).name}, "
 
         if url is not None:
             error_message += f"URL: {url}, "
