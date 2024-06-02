@@ -352,7 +352,7 @@ Client와 ClientOptions에도 마찬가지로 기본 옵션을 사용 가능합�
 Some part of this program contains code from [resoup(created and developed by me)](https://github.com/ilotoki0804/resoup) library.
 
 이 프로그램의 일부는 [httpx(BSD-3-Clause license)](https://github.com/encode/httpx) 라이브러리에 있던 코드를 포함합니다.
-Some part of this program contains code from [typeshed](https://github.com/encode/httpx) library.
+Some part of this program contains code from [httpx](https://github.com/encode/httpx) library.
 
 ## Motivation and blathers
 
