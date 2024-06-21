@@ -2,14 +2,11 @@
 # Special Excludes #
 ####################
 
-# Exclude all files that starts with '_...'
-_*.*
-_*/
-# Reinclude all files that starts with '__...' (e.g. __init__.py, __main__.py, etc.)
-!__*.*
+# Exclude all files that starts with '_ignore...'
+_ignore*
 
 # venv for this repository
-.resoup/
+.venv/
 
 # secret vault
 .vault/

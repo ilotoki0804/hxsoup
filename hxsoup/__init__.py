@@ -12,6 +12,7 @@ Various convenient features related to httpx and BeautifulSoup.
 
 __title__ = "hxsoup"
 __description__ = "Various convenient features related to httpx and BeautifulSoup."
+__url__ = "https://github.com/ilotoki0804/WebtoonScraper"
 __version_info__ = (0, 4, 1)
 __version__ = str.join(".", map(str, __version_info__))
 __author__ = "ilotoki0804"
