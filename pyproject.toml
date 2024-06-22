@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hxsoup"
-version = "0.4.1"  # DO NOT EDIT BY HAND. EDIT __version_info__ INSTEAD.
+version = "0.5.0"  # DO NOT EDIT BY HAND. EDIT __version_info__ INSTEAD.
 description = "Various convenient features related to httpx and BeautifulSoup."
 authors = ["ilotoki0804 <ilotoki0804@gmail.com>"]
 license = "MIT"
