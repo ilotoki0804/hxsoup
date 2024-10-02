@@ -1,6 +1,7 @@
 # ruff: noqa: UP007, UP006 Use httpx's convention.
 from __future__ import annotations
 
+from ssl import SSLError
 import typing
 from contextlib import asynccontextmanager, contextmanager
 
@@ -163,7 +164,7 @@ class Client(_HttpxClient):
                     timeout=timeout,
                     extensions=extensions,
                 )
-            except (RequestError, HTTPStatusError):
+            except (RequestError, HTTPStatusError, SSLError):
                 if i == attempts - 1:
                     raise
                 logger.warning("Retrying...")
@@ -227,7 +228,7 @@ class Client(_HttpxClient):
                     follow_redirects=follow_redirects,
                     stream=True,
                 )
-            except (RequestError, HTTPStatusError):
+            except (RequestError, HTTPStatusError, SSLError):
                 if i == attempts - 1:
                     raise
                 logger.warning("Retrying...")
@@ -633,7 +634,7 @@ class AsyncClient(_HttpxAsyncClient):
                     timeout=timeout,
                     extensions=extensions,
                 )
-            except (RequestError, HTTPStatusError):
+            except (RequestError, HTTPStatusError, SSLError):
                 if i == attempts - 1:
                     raise
                 logger.warning("Retrying...")
@@ -707,7 +708,7 @@ class AsyncClient(_HttpxAsyncClient):
                     follow_redirects=follow_redirects,
                     stream=True,
                 )
-            except (RequestError, HTTPStatusError):
+            except (RequestError, HTTPStatusError, SSLError):
                 if i == attempts - 1:
                     raise
                 logger.warning("Retrying...")
