@@ -178,7 +178,7 @@ class ClientOptions:
         if not copy and ALLOWED_KEYWORDS_IN_API.issuperset(self._kwargs):
             return self._kwargs
 
-        return {key: value for key, value in self._kwargs.items() if ALLOWED_KEYWORDS_IN_API}
+        return {key: value for key, value in self._kwargs.items() if key in ALLOWED_KEYWORDS_IN_API}
 
     def request(self, *args, **kwargs) -> SoupedResponse:
         kwargs_to_use = self._build_api_kwargs(copy=True)
