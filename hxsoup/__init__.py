@@ -13,7 +13,7 @@ Various convenient features related to httpx and BeautifulSoup.
 __title__ = "hxsoup"
 __description__ = "Various convenient features related to httpx and BeautifulSoup."
 __url__ = "https://github.com/ilotoki0804/WebtoonScraper"
-__version__ = "0.5.1"
+__version__ = "0.6.0"
 __author__ = "ilotoki0804"
 __author_email__ = "ilotoki0804@gmail.com"
 __license__ = "MIT License"

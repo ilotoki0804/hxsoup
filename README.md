@@ -1,3 +1,6 @@
+>[!CAUTION]
+> **This package is no longer maintained and replaced with [httpc](https://github.com/ilotoki0804/httpc).**
+
 # hxsoup
 
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/hxsoup)
